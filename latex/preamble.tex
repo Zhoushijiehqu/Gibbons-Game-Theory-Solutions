@@ -1,0 +1,158 @@
+% ============================================================================
+%  公共导言区：吉本斯《博弈论基础》习题答案详解
+%  依赖：ctex + xelatex
+% ============================================================================
+\usepackage[a4paper,
+            top=2.5cm, bottom=2.5cm,
+            left=2.6cm, right=2.6cm,
+            headsep=0.55cm, footskip=0.9cm]{geometry}
+
+% ------------------------------ 数学 ------------------------------
+\usepackage{amsmath, amssymb, amsfonts, mathrsfs}
+\allowdisplaybreaks[4]
+% 结论不使用黑色方框强调，保留公式内容本身。
+\renewcommand{\boxed}[1]{#1}
+% 正文段首统一缩进两个汉字；行间公式后的正文也恢复首行缩进。
+\setlength{\parindent}{2em}
+\makeatletter
+\everydisplay{\aftergroup\@afterindenttrue}
+\makeatother
+
+% ------------------------------ 绘图与表格 ------------------------------
+\usepackage{tikz}
+\usetikzlibrary{matrix, positioning, calc, arrows.meta,
+                decorations.pathreplacing, shapes.geometric}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{multirow}
+\usepackage{makecell}
+\usepackage{graphicx}
+
+% ------------------------------ 版式 ------------------------------
+\usepackage{titlesec}
+\usepackage{fancyhdr}
+\setlength{\headheight}{21.99997pt}
+\usepackage[dvipsnames, table]{xcolor}
+\usepackage{enumitem}
+\usepackage{caption}
+\usepackage{needspace}
+
+% ============================================================================
+%  颜色
+% ============================================================================
+\definecolor{maincolor}{HTML}{1F4E79}   % 主色：深靛蓝
+\definecolor{accent}{HTML}{B03A2E}      % 强调色：砖红
+\definecolor{rulegray}{HTML}{9AA5B1}    % 分隔线灰
+\definecolor{lightbg}{HTML}{F5F7FA}     % 浅底
+\definecolor{dotgray}{HTML}{3C3C3C}     % 节点黑
+
+% ============================================================================
+%  章节标题样式
+% ============================================================================
+\titleformat{\chapter}[display]
+  {\normalfont\raggedright}
+  {\sffamily\bfseries\large\color{maincolor}第\,\thechapter\,章}
+  {7pt}
+  {\sffamily\bfseries\Huge\color{maincolor!80!black}}
+  [\vspace{7pt}{\color{maincolor}\titlerule[1.2pt]}]
+\titlespacing*{\chapter}{0pt}{-10pt}{28pt}
+
+\titleformat{\section}[hang]
+  {\normalfont\sffamily\bfseries\large\color{maincolor}}{\thesection}{0.6em}{}
+\titlespacing*{\section}{0pt}{1.6em}{0.7em}
+
+% 页码与页眉
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\sffamily\color{maincolor!80!black}\nouppercase{\leftmark}}
+\fancyhead[R]{\small\sffamily\color{maincolor!80!black}\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headrule}{\hbox to\headwidth{\color{maincolor!45}\leaders\hrule height \headrulewidth\hfill}}
+\fancypagestyle{plain}{\fancyhf{}\fancyfoot[C]{\small\sffamily\thepage}\renewcommand{\headrulewidth}{0pt}}
+
+% ============================================================================
+%  自定义命令
+% ============================================================================
+
+% ---- 习题标题：左侧色块 + 编号，自动进入目录 ----
+\newcommand{\exer}[1]{%
+  \Needspace{0.48\textheight}% 新题前至少保留约半页空间，避免题目标题落在页底
+  \par\addvspace{1.5em}%
+  \phantomsection
+  \noindent
+  {\color{accent}\rule[-0.18em]{4pt}{1.05em}}%
+  \hspace{0.55em}{\sffamily\bfseries\large\color{accent}习题\,#1}%
+  \par\nobreak
+  \addvspace{0.45em}%
+  \addcontentsline{toc}{subsection}{习题\,#1}%
+  \ignorespaces
+}
+
+% ---- “解：”标记 ----
+\newcommand{\sol}{\textbf{解：}}
+
+% ---- “注：”标记（复核说明等） ----
+\newcommand{\cmt}[1]{\par\smallskip\noindent{\small\textbf{注：}#1}\par\medskip}
+
+% ---- 图：居中绘图 + 自动编号题注 ----
+\newcounter{figcnt}[chapter]
+\newcommand{\myfig}[2]{%
+  \par\addvspace{0.8em}%
+  \refstepcounter{figcnt}%
+  \begin{center}%
+    #1\\[5pt]%
+    {\small\sffamily\color{rulegray}图\,\thechapter.\arabic{figcnt}\quad #2}%
+  \end{center}%
+  \addvspace{0.4em}%
+}
+
+% ---- 支付矩阵：统一风格的表格 ----
+\newenvironment{paytab}{%
+  \par\addvspace{0.6em}%
+  \begin{center}\small
+  \renewcommand{\arraystretch}{1.35}%
+  \setlength{\tabcolsep}{6pt}%
+}{%
+  \end{center}%
+  \addvspace{0.4em}%
+}
+% 矩阵外框样式
+\newcommand{\mapline}{\arrayrulecolor{rulegray!70}\hline\arrayrulecolor{black}}
+
+% ---- 支付矩阵左上角说明文字 ----
+\newcommand{\pthead}[1]{\sffamily\bfseries #1}
+% 支付矩阵单元格使用固定高度的盒子，使文字和分式都在格内真正垂直居中。
+\newcommand{\paybox}[2]{\parbox[c][3.2em][c]{#1}{\centering #2}}
+
+% ---- tikz 统一样式 ----
+\tikzset{
+  pnode/.style   = {circle, fill=dotgray!90, inner sep=0pt, minimum size=2.7mm},
+  tnode/.style   = {circle, fill=dotgray!90, inner sep=0pt, minimum size=2.4mm},
+  elab/.style    = {font=\small, fill=white, inner sep=1.2pt},
+  pay/.style     = {font=\small, align=center},
+  nodlab/.style  = {font=\small},
+  branch/.style  = {line width=0.5pt, color=black!85},
+  infoset/.style = {densely dashed, color=black!60, line width=0.6pt},
+  contarc/.style = {line width=0.6pt, color=black!75},
+}
+
+% ============================================================================
+%  目录与超链接
+% ============================================================================
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks = true,
+  linkcolor  = maincolor,
+  citecolor  = maincolor,
+  urlcolor   = maincolor,
+  bookmarksnumbered = true,
+  pdftitle   = {吉本斯《博弈论基础》习题答案详解},
+  pdfauthor  = {若光ovo and ChatGPT},
+  pdfsubject = {联系邮箱：a15759219744@163.com},
+}
+\usepackage{bookmark}
+
+\setcounter{tocdepth}{2}
+\setcounter{secnumdepth}{2}
+
+\renewcommand{\contentsname}{目\quad 录}

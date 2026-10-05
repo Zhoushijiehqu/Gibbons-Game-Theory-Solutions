@@ -1,0 +1,1182 @@
+% =============================================================================
+%  第四章  非完全信息动态博弈
+% =============================================================================
+\chapter{非完全信息动态博弈}\label{chap:04}
+
+% =============================================================================
+\exer{4.1}
+对下面的扩展式博弈，推导其标准式博弈，并且找出所有的纯战略纳什均衡、子博弈精炼纳什均衡以及精炼贝叶斯均衡。
+
+\vspace{0.4em}
+\noindent\textbf{(4.1.a)}
+
+\myfig{%
+\begin{tikzpicture}[scale=0.95, every node/.style={font=\small}]
+  \node[pnode] (p1) at (0,0) {};
+  \node[above=2pt of p1, nodlab] {1};
+  \node[pnode] (a) at (-3.2,-2.6) {};
+  \node[pnode] (b) at (3.2,-2.6) {};
+  \node[tnode] (aL) at (-5.4,-4.9) {};
+  \node[tnode] (aR) at (-1.0,-4.9) {};
+  \node[tnode] (bL) at (1.0,-4.9) {};
+  \node[tnode] (bR) at (5.4,-4.9) {};
+  \node[tnode] (r)  at (7.0,0) {};
+  \draw[branch] (p1) -- (a) node[pos=0.5, elab, left=3pt] {$L$};
+  \draw[branch] (p1) -- (b) node[pos=0.5, elab, right=3pt] {$M$};
+  \draw[branch] (p1) -- (r) node[pos=0.5, elab, above] {$R$};
+  \draw[infoset] (a) -- (b) node[pos=0.5, elab, above=2pt] {2};
+  \node[elab, left=4pt of a] {$p$};
+  \node[elab, right=4pt of b] {$1-p$};
+  \draw[branch] (a) -- (aL) node[pos=0.55, elab, left=1pt] {$L'$};
+  \draw[branch] (a) -- (aR) node[pos=0.55, elab, right=1pt] {$R'$};
+  \draw[branch] (b) -- (bL) node[pos=0.55, elab, left=1pt] {$L'$};
+  \draw[branch] (b) -- (bR) node[pos=0.55, elab, right=1pt] {$R'$};
+  \node[pay, below=3pt of aL] {$4,\,1$};
+  \node[pay, below=3pt of aR] {$0,\,0$};
+  \node[pay, below=3pt of bL] {$3,\,0$};
+  \node[pay, below=3pt of bR] {$0,\,1$};
+  \node[pay, right=5pt of r] {$2,\,2$};
+\end{tikzpicture}%
+}{4.1.a 的扩展式博弈}
+
+\sol \textbf{(1) 标准式表达}
+
+把参与者 2 在两个节点上的行动记为纯战略 $L'$（在 $L$ 与 $M$ 后都选 $L'$）与 $R'$。参与者 1 的战略为 $L,M,R$。标准式如下（括号中第一个数为参与者 1 的收益，第二个为参与者 2 的收益）：
+
+\begin{paytab}
+\begin{tabular}{cccc}
+ & \multicolumn{2}{c}{\pthead{参与者 2}}\\
+\cline{2-3}
+ & $L'$ & $R'$\\[2pt]
+\hline
+$L$ & $4,\,1$ & $0,\,0$\\[4pt]
+\hline
+$M$ & $3,\,0$ & $0,\,1$\\[4pt]
+\hline
+$R$ & $2,\,2$ & $2,\,2$\\[4pt]
+\hline
+\end{tabular}
+\end{paytab}
+
+\noindent\textbf{(2) 纯战略纳什均衡}
+
+对参与者 2 而言，给定参与者 1 选 $L$，其在 $L'$ 得 $1$、在 $R'$ 得 $0$，故最优反应为 $L'$；给定参与者 1 选 $M$，其在 $L'$ 得 $0$、在 $R'$ 得 $1$，最优反应为 $R'$；给定参与者 1 选 $R$，博弈结束，参与者 2 的两个行动无差异（均为 $2$）。于是用划线法可得纯战略纳什均衡为 $(L,L')$ 与 $(R,R')$。
+
+\noindent\textbf{(3) 子博弈精炼纳什均衡}
+
+该博弈只有一个子博弈（即博弈本身，因为参与者 2 的信息集不是单节，不形成子博弈）。故子博弈精炼纳什均衡与纯战略纳什均衡相同，即 $(L,L')$、$(R,R')$。
+
+\noindent\textbf{(4) 精炼贝叶斯均衡（PBE）}
+
+PBE 要求在参与者 2 的信息集上给出信念 $(p,1-p)$，并满足序贯理性。
+
+\begin{enumerate}[leftmargin=1.6em]
+  \item 对 $(L,L')$：该信息集处于均衡路径之上，由贝叶斯法则 $p=1$。给定 $p=1$，参与者 2 选 $L'$ 的期望收益为 $1$，选 $R'$ 为 $0$，故 $L'$ 最优；给定参与者 2 选 $L'$，参与者 1 在 $L,M,R$ 中 $L$ 得 $4$ 最大，故 $L$ 最优。于是 $\{(L,L'),\,p=1\}$ 是一个 PBE。
+  \item 对 $(R,R')$：参与者 1 选 $R$ 使博弈结束，信息集处于均衡路径之外，信念 $p$ 不受贝叶斯法则约束（WPBE 与 PBE 在此相同）。参与者 2 选 $R'$ 需满足其期望收益不低于选 $L'$：
+  \[
+    E(R')=1-p \ge E(L')=p \quad\Longrightarrow\quad p\le \tfrac12 .
+  \]\indent
+  给定参与者 2 选 $R'$，参与者 1 选 $R$ 得 $2$，选 $L$ 得 $0$、选 $M$ 得 $0$，故 $R$ 最优。于是 $\{(R,R'),\,p\le 1/2\}$ 是一族 PBE（若要求严格劣战略剔除，则取 $p<1/2$）。
+\end{enumerate}
+
+综上，纯战略纳什均衡与子博弈精炼纳什均衡为
+\[
+  (L,L'),\qquad (R,R').
+\]
+\indent 对应的 PBE 为
+\[
+  \bigl\{(L,L'),\ p=1\bigr\},\qquad
+  \bigl\{(R,R'),\ p\le \tfrac12\bigr\}.
+\]
+\indent 若要求参与者 2 的最优反应严格，则第二族中的信念需满足 $p<1/2$。
+
+\vspace{0.6em}
+\noindent\textbf{(4.1.b)}
+
+\myfig{%
+\begin{tikzpicture}[scale=0.82, every node/.style={font=\small}]
+  \node[pnode] (p1) at (0,0) {};
+  \node[above=2pt of p1, nodlab] {1};
+  \node[pnode] (a) at (-3.6,-2.6) {};
+  \node[pnode] (b) at (3.6,-2.6) {};
+  \node[tnode] (aL) at (-6.8,-4.9) {};
+  \node[tnode] (aM) at (-3.6,-4.9) {};
+  \node[tnode] (aR) at (-0.4,-4.9) {};
+  \node[tnode] (bL) at (0.4,-4.9) {};
+  \node[tnode] (bM) at (3.6,-4.9) {};
+  \node[tnode] (bR) at (6.8,-4.9) {};
+  \node[tnode] (r)  at (8.4,0) {};
+  \draw[branch] (p1) -- (a) node[pos=0.5, elab, left=3pt] {$L$};
+  \draw[branch] (p1) -- (b) node[pos=0.5, elab, right=3pt] {$M$};
+  \draw[branch] (p1) -- (r) node[pos=0.5, elab, above] {$R$};
+  \draw[infoset] (a) -- (b) node[pos=0.5, elab, above=2pt] {2};
+  \node[elab, left=4pt of a] {$p$};
+  \node[elab, right=4pt of b] {$1-p$};
+  \draw[branch] (a) -- (aL) node[pos=0.55, elab, left=1pt] {$L'$};
+  \draw[branch] (a) -- (aM) node[pos=0.55, elab, left=1pt] {$M'$};
+  \draw[branch] (a) -- (aR) node[pos=0.55, elab, right=1pt] {$R'$};
+  \draw[branch] (b) -- (bL) node[pos=0.55, elab, left=1pt] {$L'$};
+  \draw[branch] (b) -- (bM) node[pos=0.55, elab, left=1pt] {$M'$};
+  \draw[branch] (b) -- (bR) node[pos=0.55, elab, right=1pt] {$R'$};
+  \node[pay, below=3pt of aL] {$1,\,3$};
+  \node[pay, below=3pt of aM] {$1,\,2$};
+  \node[pay, below=3pt of aR] {$4,\,0$};
+  \node[pay, below=3pt of bL] {$4,\,0$};
+  \node[pay, below=3pt of bM] {$0,\,2$};
+  \node[pay, below=3pt of bR] {$3,\,3$};
+  \node[pay, right=5pt of r] {$2,\,4$};
+\end{tikzpicture}%
+}{4.1.b 的扩展式博弈}
+
+\sol \textbf{(1) 标准式表达}
+
+参与者 2 的纯战略为在 $L,M$ 两个节点上分别选 $L',M',R'$ 之一。仅需列出对应的纯战略纳什均衡即可：
+
+\begin{paytab}
+\begin{tabular}{cccc}
+ & \multicolumn{3}{c}{\pthead{参与者 2}}\\
+\cline{2-4}
+ & $L'$ & $M'$ & $R'$\\[2pt]
+\hline
+$L$ & $1,\,3$ & $1,\,2$ & $4,\,0$\\[4pt]
+\hline
+$M$ & $4,\,0$ & $0,\,2$ & $3,\,3$\\[4pt]
+\hline
+$R$ & $2,\,4$ & $2,\,4$ & $2,\,4$\\[4pt]
+\hline
+\end{tabular}
+\end{paytab}
+
+\noindent\textbf{(2) 纯战略纳什均衡}
+
+参与者 1 选 $R$ 时参与者 2 无差异；参与者 1 选 $L$ 时参与者 2 最优反应为 $L'$（得 $3$）；选 $M$ 时参与者 2 最优反应为 $R'$（得 $3$）。检验可得唯一的纯战略纳什均衡为 $(R,M')$。
+
+\noindent\textbf{(3) 子博弈精炼纳什均衡}
+
+同样只有一个子博弈（博弈本身），故子博弈精炼纳什均衡亦为 $(R,M')$。
+
+\noindent\textbf{(4) 精炼贝叶斯均衡}
+
+设参与者 2 信息集上的信念为 $(p,1-p)$。对均衡 $(R,M')$，信息集处于均衡路径之外，$p$ 自由。参与者 2 选 $M'$ 需满足
+\[
+  E(M')=2 \ge E(L')=3p \quad\text{且}\quad E(M')=2 \ge E(R')=3(1-p),
+\]\indent
+即 $p\le 2/3$ 且 $p\ge 1/3$，故 $1/3\le p\le 2/3$。给定参与者 2 选 $M'$，参与者 1 选 $R$ 得 $2$，选 $L$ 得 $1$、选 $M$ 得 $0$，故 $R$ 最优。
+
+于是 PBE 为 $\{(R,M'),\,1/3\le p\le 2/3\}$（若要求严格劣战略剔除或严格最优，取严格不等号 $1/3<p<2/3$）。
+
+% =============================================================================
+\exer{4.2}
+证明在下面的扩展式博弈中，不存在纯战略精炼贝叶斯均衡。并求出其混合战略精炼贝叶斯均衡。
+
+\myfig{%
+\begin{tikzpicture}[scale=0.95, every node/.style={font=\small}]
+  \node[pnode] (p1) at (0,0) {};
+  \node[above=2pt of p1, nodlab] {1};
+  \node[pnode] (a) at (-3.0,-2.6) {};
+  \node[pnode] (b) at (3.0,-2.6) {};
+  \node[tnode] (aL) at (-5.2,-4.9) {};
+  \node[tnode] (aR) at (-0.8,-4.9) {};
+  \node[tnode] (bL) at (0.8,-4.9) {};
+  \node[tnode] (bR) at (5.2,-4.9) {};
+  \node[tnode] (r)  at (6.8,0) {};
+  \draw[branch] (p1) -- (a) node[pos=0.5, elab, left=3pt] {$L$};
+  \draw[branch] (p1) -- (b) node[pos=0.5, elab, right=3pt] {$M$};
+  \draw[branch] (p1) -- (r) node[pos=0.5, elab, above] {$R$};
+  \draw[infoset] (a) -- (b) node[pos=0.5, elab, above=2pt] {2};
+  \node[elab, left=4pt of a] {$p$};
+  \node[elab, right=4pt of b] {$1-p$};
+  \draw[branch] (a) -- (aL) node[pos=0.55, elab, left=1pt] {$L'$};
+  \draw[branch] (a) -- (aR) node[pos=0.55, elab, right=1pt] {$R'$};
+  \draw[branch] (b) -- (bL) node[pos=0.55, elab, left=1pt] {$L'$};
+  \draw[branch] (b) -- (bR) node[pos=0.55, elab, right=1pt] {$R'$};
+  \node[pay, below=3pt of aL] {$3,\,0$};
+  \node[pay, below=3pt of aR] {$0,\,1$};
+  \node[pay, below=3pt of bL] {$0,\,1$};
+  \node[pay, below=3pt of bR] {$3,\,0$};
+  \node[pay, right=5pt of r] {$2,\,2$};
+\end{tikzpicture}%
+}{4.2 的扩展式博弈}
+
+\sol 设参与者 2 在信息集上的信念为 $(p,1-p)$，即到达 $L$ 节点（左侧节点，对应参与者 1 选 $L$）的概率为 $p$。先写出参与者 2 在两种信念下的期望收益：
+\[
+  E(L')=p\cdot 0+(1-p)\cdot 1=1-p,\qquad
+  E(R')=p\cdot 1+(1-p)\cdot 0=p .
+\]\indent
+因此若 $p>1/2$，参与者 2 的最优反应为 $R'$；若 $p<1/2$，最优反应为 $L'$；若 $p=1/2$，则对 $L',R'$ 无差异。
+
+\noindent\textbf{(1) 证明不存在纯战略 PBE}
+
+逐一考察参与者 1 的纯战略 $L,M,R$：
+
+\begin{enumerate}[leftmargin=1.6em]
+  \item 若参与者 1 选 $L$：信息集处于均衡路径之上，贝叶斯更新得 $p=1$。此时参与者 2 的最优反应为 $R'$（因 $E(R')=1>E(L')=0$）。给定参与者 2 选 $R'$，参与者 1 选 $L$ 得 $0$，但选 $M$ 得 $3$、选 $R$ 得 $1$，故参与者 1 会偏离，不是 PBE。
+  \item 若参与者 1 选 $M$：路径之上贝叶斯更新得 $p=0$。参与者 2 最优反应为 $L'$（$E(L')=1>E(R')=0$）。给定参与者 2 选 $L'$，参与者 1 选 $M$ 得 $0$，但选 $L$ 得 $3$，会偏离，不是 PBE。
+  \item 若参与者 1 选 $R$：博弈结束，信息集处于路径之外，$p$ 自由。参与者 2 在信息集上的行动记为 $a^*\in\{L',R'\}$。若 $a^*=L'$，则参与者 1 偏离到 $L$ 可得 $3>2$；若 $a^*=R'$，则偏离到 $M$ 可得 $3>2$。无论参与者 2 在路径之外指定何种行动，参与者 1 都有严格盈利的偏离（选 $R$ 只能得 $2$，严格小于偏离所能得到的 $3$）。故不存在以 $R$ 为均衡行动的 PBE。
+\end{enumerate}
+综上，该博弈不存在纯战略精炼贝叶斯均衡。
+
+\noindent\textbf{(2) 混合战略 PBE}
+
+设参与者 2 以概率 $q$ 选 $L'$（以 $1-q$ 选 $R'$）。参与者 1 各行动的期望收益为
+\[
+  EU(L)=3q,\qquad EU(M)=3(1-q),\qquad EU(R)=2 .
+\]\indent
+参与者 2 在信念 $p$ 下的期望收益为 $E(L')=1-p,\;E(R')=p$。
+
+注意 $EU(L)=3q$、$EU(M)=3(1-q)$、$EU(R)=2$，不能仅由 $EU(L)+EU(M)=3$ 推出 $EU(L)=EU(M)$。逐段考察 $q$：
+\begin{enumerate}[leftmargin=1.6em]
+  \item 若 $q<1/3$，$M$ 是参与者 1 的唯一最佳反应。于是均衡路径上只到达 $M$，贝叶斯法则要求 $p=0$；但此时参与者 2 严格选择 $L'$，即 $q=1$，矛盾。
+  \item 若 $q>2/3$，$L$ 是参与者 1 的唯一最佳反应。贝叶斯法则要求 $p=1$；但此时参与者 2 严格选择 $R'$，即 $q=0$，矛盾。
+  \item 若 $1/3<q<2/3$，$R$ 是参与者 1 的唯一最佳反应，故该信息集离开均衡路径。要使参与者 2 以正概率选择两种行动，必须令其无差异，即 $p=1/2$。
+  \item 若 $q=1/3$ 或 $q=2/3$，参与者 1 分别在 $M,R$ 或 $L,R$ 间无差异。若他给 $M$ 或 $L$ 正概率，贝叶斯更新将令 $p=0$ 或 $p=1$，迫使参与者 2 选择纯行动，与相应的 $q$ 矛盾。因此参与者 1 仍须纯选 $R$，且 $p=1/2$。
+\end{enumerate}
+所以均衡中参与者 1 纯选 $R$，参与者 2 在 $L',R'$ 间混合；其混合概率满足参与者 1 不偏离的条件
+\[
+  2\ge 3q\quad\text{且}\quad 2\ge 3(1-q)
+  \quad\Longleftrightarrow\quad \tfrac13\le q\le\tfrac23 .
+\]\indent
+另一方面，参与者 2 在离路径信息集上以概率 $q\in(\tfrac13,\tfrac23)$ 混合行动，只有在其信念为 $p=\tfrac12$（即对 $L',R'$ 无差异）时才是一致的最优反应。
+
+因此全部（混合战略）PBE 为
+\[
+  \boxed{\;\Bigl\{\ \sigma_1:\Pr(R)=1\ ;\quad
+  \sigma_2:\Pr(L')=q,\ q\in\Bigl[\tfrac13,\tfrac23\Bigr]\ ;\quad
+  \mu\bigl([L]\bigr)=\tfrac12\ \Bigr\}\; } .
+\]\indent
+（端点 $q=\tfrac13$ 或 $q=\tfrac23$ 时参与者 1 在 $R$ 与 $M$（或 $L$）之间无差异，但仍可取 $R$ 为均衡行动。）
+
+% =============================================================================
+\exer{4.3a}
+写出下面的信号博弈的一个混同精炼贝叶斯均衡，其中两种类型的发送者都选择信号 $R$。
+
+\myfig{%
+\begin{tikzpicture}[scale=0.82, every node/.style={font=\small}]
+  \node[pnode] (nat) at (0,0) {};
+  \node[right=6pt of nat, nodlab] {NATURE};
+  \node[pnode] (t1) at (0,2.9) {};
+  \node[above=3pt of t1, elab] {$t_1$};
+  \node[pnode] (t2) at (0,-2.9) {};
+  \node[below=3pt of t2, elab] {$t_2$};
+  \draw[branch] (nat) -- (t1) node[pos=0.5, elab, left=3pt] {$.5$};
+  \draw[branch] (nat) -- (t2) node[pos=0.5, elab, left=3pt] {$.5$};
+  \node[pnode] (L1) at (-4.6,2.9) {};
+  \node[pnode] (R1) at (4.6,2.9) {};
+  \node[pnode] (L2) at (-4.6,-2.9) {};
+  \node[pnode] (R2) at (4.6,-2.9) {};
+  \draw[infoset] (L1) -- (L2) node[pos=0.5, elab] {Receiver};
+  \draw[infoset] (R1) -- (R2) node[pos=0.5, elab] {Receiver};
+  \draw[branch] (t1) -- (L1) node[pos=0.5, elab, above] {$L$};
+  \draw[branch] (t1) -- (R1) node[pos=0.5, elab, above] {$R$};
+  \draw[branch] (t2) -- (L2) node[pos=0.5, elab, below] {$L$};
+  \draw[branch] (t2) -- (R2) node[pos=0.5, elab, below] {$R$};
+  \node[tnode] (L1u) at (-6.3,3.7) {};
+  \node[tnode] (L1d) at (-6.3,2.1) {};
+  \draw[branch] (L1) -- (L1u) node[pos=0.5, elab, right=1pt] {$u$};
+  \draw[branch] (L1) -- (L1d) node[pos=0.5, elab, right=1pt] {$d$};
+  \node[pay, left=4pt of L1u] {$1,\,2$};
+  \node[pay, left=4pt of L1d] {$2,\,0$};
+  \node[tnode] (R1u) at (6.3,3.7) {};
+  \node[tnode] (R1d) at (6.3,2.1) {};
+  \draw[branch] (R1) -- (R1u) node[pos=0.5, elab, left=1pt] {$u$};
+  \draw[branch] (R1) -- (R1d) node[pos=0.5, elab, left=1pt] {$d$};
+  \node[pay, right=4pt of R1u] {$0,\,1$};
+  \node[pay, right=4pt of R1d] {$3,\,0$};
+  \node[tnode] (L2u) at (-6.3,-2.1) {};
+  \node[tnode] (L2d) at (-6.3,-3.7) {};
+  \draw[branch] (L2) -- (L2u) node[pos=0.5, elab, right=1pt] {$u$};
+  \draw[branch] (L2) -- (L2d) node[pos=0.5, elab, right=1pt] {$d$};
+  \node[pay, left=4pt of L2u] {$0,\,0$};
+  \node[pay, left=4pt of L2d] {$3,\,1$};
+  \node[tnode] (R2u) at (6.3,-2.1) {};
+  \node[tnode] (R2d) at (6.3,-3.7) {};
+  \draw[branch] (R2) -- (R2u) node[pos=0.5, elab, left=1pt] {$u$};
+  \draw[branch] (R2) -- (R2d) node[pos=0.5, elab, left=1pt] {$d$};
+  \node[pay, right=4pt of R2u] {$1,\,0$};
+  \node[pay, right=4pt of R2d] {$2,\,2$};
+\end{tikzpicture}%
+}{4.3a 的信号博弈（单元格为（发送者，接收者）收益）}
+
+\sol 由题意，需找出两种类型都选信号 $R$ 的混同精炼贝叶斯均衡。记接收者在 $L$ 信息集（两类型选 $L$ 后到达）上对类型 $t_1$ 的后验概率为 $p$，对 $t_2$ 为 $1-p$；在 $R$ 信息集上为 $q$ 与 $1-q$。
+
+由于混同于 $R$，在均衡路径上的 $R$ 信息集由贝叶斯法则得 $q=0.5$；$L$ 信息集处于路径之外，$p$ 自由（仅需满足序贯理性）。
+
+逐一检验接收者在 $R$ 后采取 $u$ 或 $d$（在 $L$ 后亦 $u$ 或 $d$ 共四种组合）：
+
+\begin{enumerate}[leftmargin=1.8em, label=(\arabic*)]
+  \item $(u,u)$：$q=0.5$ 时接收者期望 $E(u)=0.5,\ E(d)=1$，故 $d$ 优于 $u$，不满足。
+  \item $(u,d)$：$q=0.5$ 时 $d$ 优于 $u$。给定接收者策略 $(u,d)$，发送者：
+    $t_1$ 选 $R$ 得 $3$、选 $L$ 得 $1$，不偏离；$t_2$ 选 $R$ 得 $2$、选 $L$ 得 $0$，不偏离。
+    再看 $L$ 信息集上接收者选 $u$ 需 $E(u)>E(d)$，即 $2p>1-p$，得 $p>1/3$。
+    故 $\{(R,R),\,(u,d),\,q=0.5,\,p>1/3\}$ 是一个混同 PBE。
+  \item $(d,u)$：$q=0.5$ 时 $d$ 优于 $u$，不满足。
+  \item $(d,d)$：$q=0.5$ 时 $d$ 优于 $u$。但 $t_2$ 选 $R$ 得 $2$、选 $L$ 得 $3$，会偏离，不满足。
+\end{enumerate}
+
+因此满足题意的混同精炼贝叶斯均衡为
+\[
+  \bigl\{(R,R),\ (u,d),\ q=0.5,\ p>1/3\bigr\}.
+\]
+
+% =============================================================================
+\exer{4.3b}
+下面的三类型信号博弈由自然的行动开始（未在树上标出），以同样的概率 $1/3$ 赋予发送者三种类型之一。写出一个混同精炼贝叶斯均衡，其中三种类型的发送者都选择信号 $L$。
+
+\myfig{%
+\begin{tikzpicture}[scale=0.78, every node/.style={font=\small}]
+  \node[pnode] (t1) at (0,5.0) {};
+  \node[below=3pt of t1, elab] {$t_1\ 1/3$};
+  \node[pnode] (t2) at (0,0) {};
+  \node[below=3pt of t2, elab] {$t_2\ 1/3$};
+  \node[pnode] (t3) at (0,-5.0) {};
+  \node[below=3pt of t3, elab] {$t_3\ 1/3$};
+  \draw[branch] (t1) -- (t2);
+  \draw[branch] (t2) -- (t3);
+  \node[pnode] (L1) at (-4.6,5.0) {};
+  \node[pnode] (R1) at (4.6,5.0) {};
+  \node[pnode] (L2) at (-4.6,0) {};
+  \node[pnode] (R2) at (4.6,0) {};
+  \node[pnode] (L3) at (-4.6,-5.0) {};
+  \node[pnode] (R3) at (4.6,-5.0) {};
+  \draw[infoset] (L1) -- (L3);
+  \draw[infoset] (R1) -- (R3);
+  \node[elab] at (-4.6,2.5) {Receiver};
+  \node[elab] at (-4.6,-2.5) {Receiver};
+  \node[elab] at (4.6,2.5) {Receiver};
+  \node[elab] at (4.6,-2.5) {Receiver};
+  \draw[branch] (t1) -- (L1) node[pos=0.5, elab, above] {$L$};
+  \draw[branch] (t1) -- (R1) node[pos=0.5, elab, above] {$R$};
+  \draw[branch] (t2) -- (L2) node[pos=0.5, elab, above] {$L$};
+  \draw[branch] (t2) -- (R2) node[pos=0.5, elab, above] {$R$};
+  \draw[branch] (t3) -- (L3) node[pos=0.5, elab, below] {$L$};
+  \draw[branch] (t3) -- (R3) node[pos=0.5, elab, below] {$R$};
+  \node[tnode] (L1u) at (-6.3,5.8) {}; \node[tnode] (L1d) at (-6.3,4.2) {};
+  \draw[branch] (L1) -- (L1u) node[pos=0.5, elab, right=1pt] {$u$};
+  \draw[branch] (L1) -- (L1d) node[pos=0.5, elab, right=1pt] {$d$};
+  \node[pay, left=4pt of L1u] {$1,\,1$}; \node[pay, left=4pt of L1d] {$1,\,0$};
+  \node[tnode] (R1u) at (6.3,5.8) {}; \node[tnode] (R1d) at (6.3,4.2) {};
+  \draw[branch] (R1) -- (R1u) node[pos=0.5, elab, left=1pt] {$u$};
+  \draw[branch] (R1) -- (R1d) node[pos=0.5, elab, left=1pt] {$d$};
+  \node[pay, right=4pt of R1u] {$0,\,1$}; \node[pay, right=4pt of R1d] {$0,\,0$};
+  \node[tnode] (L2u) at (-6.3,0.8) {}; \node[tnode] (L2d) at (-6.3,-0.8) {};
+  \draw[branch] (L2) -- (L2u) node[pos=0.5, elab, right=1pt] {$u$};
+  \draw[branch] (L2) -- (L2d) node[pos=0.5, elab, right=1pt] {$d$};
+  \node[pay, left=4pt of L2u] {$2,\,1$}; \node[pay, left=4pt of L2d] {$0,\,0$};
+  \node[tnode] (R2u) at (6.3,0.8) {}; \node[tnode] (R2d) at (6.3,-0.8) {};
+  \draw[branch] (R2) -- (R2u) node[pos=0.5, elab, left=1pt] {$u$};
+  \draw[branch] (R2) -- (R2d) node[pos=0.5, elab, left=1pt] {$d$};
+  \node[pay, right=4pt of R2u] {$1,\,1$}; \node[pay, right=4pt of R2d] {$1,\,0$};
+  \node[tnode] (L3u) at (-6.3,-4.2) {}; \node[tnode] (L3d) at (-6.3,-5.8) {};
+  \draw[branch] (L3) -- (L3u) node[pos=0.5, elab, right=1pt] {$u$};
+  \draw[branch] (L3) -- (L3d) node[pos=0.5, elab, right=1pt] {$d$};
+  \node[pay, left=4pt of L3u] {$1,\,1$}; \node[pay, left=4pt of L3d] {$0,\,0$};
+  \node[tnode] (R3u) at (6.3,-4.2) {}; \node[tnode] (R3d) at (6.3,-5.8) {};
+  \draw[branch] (R3) -- (R3u) node[pos=0.5, elab, left=1pt] {$u$};
+  \draw[branch] (R3) -- (R3d) node[pos=0.5, elab, left=1pt] {$d$};
+  \node[pay, right=4pt of R3u] {$0,\,0$}; \node[pay, right=4pt of R3d] {$2,\,1$};
+\end{tikzpicture}%
+}{4.3b 的三类型信号博弈（单元格为（发送者，接收者）收益）}
+
+\sol 由题意，需找全部类型都选 $L$ 的混同精炼贝叶斯均衡。记接收者在 $L$ 信息集上后验为 $(p_1,p_2,p_3)$（$p_1+p_2+p_3=1$），在 $R$ 信息集上为 $(q_1,q_2,q_3)$。混同于 $L$ 时 $p_1=p_2=p_3=1/3$；$R$ 信息集在路径之外，$q$ 自由。
+
+接收者在 $L$ 信息集期望：三种类型在 $u$ 下的接收者收益均为 $1$、在 $d$ 下均为 $0$，故 $E(u)=1>E(d)=0$，$u$ 严格优于 $d$，必有 $a_L=u$。
+接收者在 $R$ 信息集期望：$t_1,t_2$ 在 $u$ 下给接收者 $1$、$t_3$ 在 $d$ 下给接收者 $1$，故 $E(u)=q_1+q_2$，$E(d)=q_3=1-(q_1+q_2)$，$a_R=u$ 当且仅当 $q_1+q_2>1/2$。
+
+检验接收者策略组合（仅 $a_L=u$ 合法，$a_R\in\{u,d\}$ 两种）：
+
+\begin{enumerate}[leftmargin=1.8em, label=(\arabic*)]
+  \item $(u,u)$：$p_1=p_2=p_3=1/3$ 时 $u$ 优于 $d$。给定 $(u,u)$，发送者：
+    $t_1$：$L$ 得 $1$、$R$ 得 $0$，不偏离；$t_2$：$L$ 得 $2$、$R$ 得 $1$，不偏离；$t_3$：$L$ 得 $1$、$R$ 得 $0$，不偏离。
+    $R$ 信息集上需要 $a_R=u$ 即 $q_1+q_2>1/2$。故 $\{(L,L,L),\,(u,u),\,p_1=p_2=p_3=1/3,\,q_1+q_2>1/2\}$ 是一个混同 PBE。
+  \item $(u,d)$：$p=1/3$ 时 $u$ 优于 $d$。但 $t_3$ 选 $L$ 得 $1$、选 $R$ 得 $2$，会偏离，不满足。
+\end{enumerate}
+
+因此满足题意的混同精炼贝叶斯均衡为
+\[
+  \bigl\{(L,L,L),\ (u,u),\ p_1=p_2=p_3=\tfrac13,\ q_1+q_2>\tfrac12\bigr\}.
+\]
+
+% =============================================================================
+\exer{4.4a}
+写出以下信号博弈中所有的纯战略混同及分离精炼贝叶斯均衡。
+
+\myfig{%
+\begin{tikzpicture}[scale=0.82, every node/.style={font=\small}]
+  \node[pnode] (nat) at (0,0) {};
+  \node[right=6pt of nat, nodlab] {NATURE};
+  \node[pnode] (t1) at (0,2.9) {};
+  \node[above=3pt of t1, elab] {$t_1$};
+  \node[pnode] (t2) at (0,-2.9) {};
+  \node[below=3pt of t2, elab] {$t_2$};
+  \draw[branch] (nat) -- (t1) node[pos=0.5, elab, left=3pt] {$.5$};
+  \draw[branch] (nat) -- (t2) node[pos=0.5, elab, left=3pt] {$.5$};
+  \node[pnode] (L1) at (-4.6,2.9) {};  \node[pnode] (R1) at (4.6,2.9) {};
+  \node[pnode] (L2) at (-4.6,-2.9) {}; \node[pnode] (R2) at (4.6,-2.9) {};
+  \draw[infoset] (L1) -- (L2) node[pos=0.5, elab] {Receiver};
+  \draw[infoset] (R1) -- (R2) node[pos=0.5, elab] {Receiver};
+  \draw[branch] (t1) -- (L1) node[pos=0.5, elab, above] {$L$};
+  \draw[branch] (t1) -- (R1) node[pos=0.5, elab, above] {$R$};
+  \draw[branch] (t2) -- (L2) node[pos=0.5, elab, below] {$L$};
+  \draw[branch] (t2) -- (R2) node[pos=0.5, elab, below] {$R$};
+  \node[tnode] (L1u) at (-6.3,3.7) {}; \node[tnode] (L1d) at (-6.3,2.1) {};
+  \draw[branch] (L1) -- (L1u) node[pos=0.5, elab, right=1pt] {$u$};
+  \draw[branch] (L1) -- (L1d) node[pos=0.5, elab, right=1pt] {$d$};
+  \node[pay, left=4pt of L1u] {$1,\,1$}; \node[pay, left=4pt of L1d] {$2,\,0$};
+  \node[tnode] (R1u) at (6.3,3.7) {}; \node[tnode] (R1d) at (6.3,2.1) {};
+  \draw[branch] (R1) -- (R1u) node[pos=0.5, elab, left=1pt] {$u$};
+  \draw[branch] (R1) -- (R1d) node[pos=0.5, elab, left=1pt] {$d$};
+  \node[pay, right=4pt of R1u] {$2,\,2$}; \node[pay, right=4pt of R1d] {$0,\,0$};
+  \node[tnode] (L2u) at (-6.3,-2.1) {}; \node[tnode] (L2d) at (-6.3,-3.7) {};
+  \draw[branch] (L2) -- (L2u) node[pos=0.5, elab, right=1pt] {$u$};
+  \draw[branch] (L2) -- (L2d) node[pos=0.5, elab, right=1pt] {$d$};
+  \node[pay, left=4pt of L2u] {$0,\,0$}; \node[pay, left=4pt of L2d] {$3,\,1$};
+  \node[tnode] (R2u) at (6.3,-2.1) {}; \node[tnode] (R2d) at (6.3,-3.7) {};
+  \draw[branch] (R2) -- (R2u) node[pos=0.5, elab, left=1pt] {$u$};
+  \draw[branch] (R2) -- (R2d) node[pos=0.5, elab, left=1pt] {$d$};
+  \node[pay, right=4pt of R2u] {$1,\,0$}; \node[pay, right=4pt of R2d] {$2,\,2$};
+\end{tikzpicture}%
+}{4.4a 的信号博弈（单元格为（发送者，接收者）收益）}
+
+\sol 记接收者在 $L$ 信息集上后验为 $(p,1-p)$（$t_1$ 的概率），在 $R$ 信息集上为 $(q,1-q)$。先算接收者期望：
+\[
+  \text{在 }L:\ E(u)=p\cdot 1+(1-p)\cdot 0=p,\quad E(d)=p\cdot 0+(1-p)\cdot 1=1-p;
+\]\indent
+\[
+  \text{在 }R:\ E(u)=q\cdot 2+(1-q)\cdot 0=2q,\quad E(d)=q\cdot 0+(1-q)\cdot 2=2(1-q).
+\]\indent
+故在 $L$ 后 $u$ 优于 $d\iff p>1/2$；在 $R$ 后 $u$ 优于 $d\iff q>1/2$。
+发送者收益：$t_1$ 选 $L$ 得 $(u:1,\ d:2)$，选 $R$ 得 $(u:2,\ d:0)$；$t_2$ 选 $L$ 得 $(u:0,\ d:3)$，选 $R$ 得 $(u:1,\ d:2)$。
+
+\textbf{（I）混同于 $L$：$(L,L)$，$p=0.5$，$q$ 自由。} 在 $L$ 后 $p=0.5$ 时 $u$ 与 $d$ 无差异（$E(u)=E(d)=0.5$）。检验四种接收者策略：
+$(u,u)$：$t_1$ 选 $L$ 得 $1$、选 $R$ 得 $2$，会偏离。
+$(u,d)$：$t_2$ 选 $L$ 得 $0$、选 $R$ 得 $2$，会偏离。
+$(d,u)$：$t_1$ 选 $L$ 得 $2$、选 $R$ 得 $2$，无差异；$t_2$ 选 $L$ 得 $3$、选 $R$ 得 $1$，不偏离。需 $R$ 后选 $u$ 即 $q>1/2$。得 $\{(L,L),(d,u),p=0.5,q>1/2\}$。
+$(d,d)$：$t_1$ 选 $L$ 得 $2$、选 $R$ 得 $0$，不偏离；$t_2$ 选 $L$ 得 $3$、选 $R$ 得 $2$，不偏离。需 $R$ 后选 $d$ 即 $q<1/2$。得 $\{(L,L),(d,d),p=0.5,q<1/2\}$。
+
+\textbf{（II）混同于 $R$：$(R,R)$，$q=0.5$，$p$ 自由。} 在 $R$ 后 $q=0.5$ 时 $u$ 与 $d$ 无差异（$E(u)=E(d)=1$）。检验四种接收者策略：
+$(u,u)$：$t_1$ 选 $R$ 得 $2$、选 $L$ 得 $1$，不偏离；$t_2$ 选 $R$ 得 $1$、选 $L$ 得 $0$，不偏离。需 $L$ 后选 $u$ 即 $p>1/2$。得 $\{(R,R),(u,u),q=0.5,p>1/2\}$。
+$(u,d)$：$t_1$ 选 $R$ 得 $0$、选 $L$ 得 $1$，会偏离。
+$(d,u)$：$t_2$ 选 $R$ 得 $1$、选 $L$ 得 $3$，会偏离。
+$(d,d)$：$t_1$ 选 $R$ 得 $0$、选 $L$ 得 $2$，会偏离。
+
+\textbf{（III）分离 $(L,R)$：$p=1,q=0$。} 在 $L$ 后 $p=1$ 时 $u$ 优于 $d$；在 $R$ 后 $q=0$ 时 $d$ 优于 $u$。接收者策略必为 $(u,d)$。检验：$t_1$ 选 $L$ 得 $1$、选 $R$ 得 $0$，不偏离；$t_2$ 选 $R$ 得 $2$、选 $L$ 得 $0$，不偏离。得 $\{(L,R),(u,d),p=1,q=0\}$。
+
+\textbf{（IV）分离 $(R,L)$：$p=0,q=1$。} 在 $L$ 后 $p=0$ 时 $d$ 优于 $u$；在 $R$ 后 $q=1$ 时 $u$ 优于 $d$。接收者必为 $(d,u)$。检验：$t_1$ 选 $R$ 得 $2$、选 $L$ 得 $2$，无差异；$t_2$ 选 $L$ 得 $3$、选 $R$ 得 $1$，不偏离。得 $\{(R,L),(d,u),p=0,q=1\}$。
+
+综上，4.4a 的全部纯战略混同与分离 PBE 为
+\[
+  \begin{aligned}
+    &\bigl\{(L,L),\ (d,u),\ p=0.5,\ q>1/2\bigr\},\\
+    &\bigl\{(L,L),\ (d,d),\ p=0.5,\ q<1/2\bigr\},\\
+    &\bigl\{(R,R),\ (u,u),\ q=0.5,\ p>1/2\bigr\},\\
+    &\bigl\{(L,R),\ (u,d),\ p=1,\ q=0\bigr\},\\
+    &\bigl\{(R,L),\ (d,u),\ p=0,\ q=1\bigr\}.
+  \end{aligned}
+\]
+
+% =============================================================================
+\exer{4.4b}
+写出以下信号博弈中所有的纯战略混同及分离精炼贝叶斯均衡。
+
+\myfig{%
+\begin{tikzpicture}[scale=0.82, every node/.style={font=\small}]
+  \node[pnode] (nat) at (0,0) {};
+  \node[right=6pt of nat, nodlab] {NATURE};
+  \node[pnode] (t1) at (0,2.9) {};
+  \node[above=3pt of t1, elab] {$t_1$};
+  \node[pnode] (t2) at (0,-2.9) {};
+  \node[below=3pt of t2, elab] {$t_2$};
+  \draw[branch] (nat) -- (t1) node[pos=0.5, elab, left=3pt] {$.5$};
+  \draw[branch] (nat) -- (t2) node[pos=0.5, elab, left=3pt] {$.5$};
+  \node[pnode] (L1) at (-4.6,2.9) {};  \node[pnode] (R1) at (4.6,2.9) {};
+  \node[pnode] (L2) at (-4.6,-2.9) {}; \node[pnode] (R2) at (4.6,-2.9) {};
+  \draw[infoset] (L1) -- (L2) node[pos=0.5, elab] {Receiver};
+  \draw[infoset] (R1) -- (R2) node[pos=0.5, elab] {Receiver};
+  \draw[branch] (t1) -- (L1) node[pos=0.5, elab, above] {$L$};
+  \draw[branch] (t1) -- (R1) node[pos=0.5, elab, above] {$R$};
+  \draw[branch] (t2) -- (L2) node[pos=0.5, elab, below] {$L$};
+  \draw[branch] (t2) -- (R2) node[pos=0.5, elab, below] {$R$};
+  \node[tnode] (L1u) at (-6.3,3.7) {}; \node[tnode] (L1d) at (-6.3,2.1) {};
+  \draw[branch] (L1) -- (L1u) node[pos=0.5, elab, right=1pt] {$u$};
+  \draw[branch] (L1) -- (L1d) node[pos=0.5, elab, right=1pt] {$d$};
+  \node[pay, left=4pt of L1u] {$3,\,0$}; \node[pay, left=4pt of L1d] {$1,\,1$};
+  \node[tnode] (R1u) at (6.3,3.7) {}; \node[tnode] (R1d) at (6.3,2.1) {};
+  \draw[branch] (R1) -- (R1u) node[pos=0.5, elab, left=1pt] {$u$};
+  \draw[branch] (R1) -- (R1d) node[pos=0.5, elab, left=1pt] {$d$};
+  \node[pay, right=4pt of R1u] {$0,\,0$}; \node[pay, right=4pt of R1d] {$4,\,1$};
+  \node[tnode] (L2u) at (-6.3,-2.1) {}; \node[tnode] (L2d) at (-6.3,-3.7) {};
+  \draw[branch] (L2) -- (L2u) node[pos=0.5, elab, right=1pt] {$u$};
+  \draw[branch] (L2) -- (L2d) node[pos=0.5, elab, right=1pt] {$d$};
+  \node[pay, left=4pt of L2u] {$3,\,3$}; \node[pay, left=4pt of L2d] {$0,\,1$};
+  \node[tnode] (R2u) at (6.3,-2.1) {}; \node[tnode] (R2d) at (6.3,-3.7) {};
+  \draw[branch] (R2) -- (R2u) node[pos=0.5, elab, left=1pt] {$u$};
+  \draw[branch] (R2) -- (R2d) node[pos=0.5, elab, left=1pt] {$d$};
+  \node[pay, right=4pt of R2u] {$1,\,2$}; \node[pay, right=4pt of R2d] {$2,\,0$};
+\end{tikzpicture}%
+}{4.4b 的信号博弈（单元格为（发送者，接收者）收益）}
+
+\sol 记接收者在 $L$ 信息集后验 $(p,1-p)$、在 $R$ 信息集 $(q,1-q)$。接收者期望：
+\[
+  \text{在 }L:\ E(u)=p\cdot 0+(1-p)\cdot 3=3(1-p),\quad E(d)=p\cdot 1+(1-p)\cdot 1=1;
+\]\indent
+\[
+  \text{在 }R:\ E(u)=q\cdot 0+(1-q)\cdot 2=2(1-q),\quad E(d)=q\cdot 4+(1-q)\cdot 0=4q.
+\]\indent
+故在 $L$ 后 $u$ 优于 $d\iff 3(1-p)>1\iff p<2/3$；在 $R$ 后 $u$ 优于 $d\iff 2(1-q)>4q\iff q<2/5$。
+发送者收益：$t_1$ 选 $L$ 得 $(u:3,\ d:1)$，选 $R$ 得 $(u:0,\ d:4)$；$t_2$ 选 $L$ 得 $(u:3,\ d:0)$，选 $R$ 得 $(u:1,\ d:2)$。
+
+\textbf{（I）混同于 $L$：$(L,L)$，$p=0.5$，$q$ 自由。} 在 $L$ 后 $p=0.5$ 时 $u$ 优于 $d$（$3(1-p)=1.5>1$），故必有 $a_L=u$。
+$(u,u)$：$t_1$ 选 $L$ 得 $3$、选 $R$ 得 $0$，不偏离；$t_2$ 选 $L$ 得 $3$、选 $R$ 得 $1$，不偏离。需 $R$ 后选 $u$ 即 $q<2/5$。得 $\{(L,L),(u,u),p=0.5,q<2/5\}$。
+$(u,d)$：$t_1$ 选 $L$ 得 $3$、选 $R$ 得 $4$，会偏离，不满足。
+
+\textbf{（II）混同于 $R$：$(R,R)$，$q=0.5$，$p$ 自由。} 在 $R$ 后 $q=0.5$ 时 $E(u)=1<2=E(d)$，故必有 $a_R=d$。
+$(u,d)$：$t_1$ 选 $R$ 得 $4$、选 $L$ 得 $3$，不偏离；$t_2$ 选 $R$ 得 $2$、选 $L$ 得 $3$，会偏离，不满足。
+$(d,d)$：$t_1$ 选 $R$ 得 $4$、选 $L$ 得 $1$，不偏离；$t_2$ 选 $R$ 得 $2$、选 $L$ 得 $0$，不偏离。需 $L$ 后选 $d$ 即 $p>2/3$。得 $\{(R,R),(d,d),q=0.5,p>2/3\}$。
+
+\textbf{（III）分离 $(L,R)$：$p=1,q=0$。} 在 $L$ 后 $p=1$ 时 $d$ 优于 $u$（因 $3(1-p)=0<1$）；在 $R$ 后 $q=0$ 时 $u$ 优于 $d$（$2(1-q)=2>0$）。接收者必为 $(d,u)$。检验：$t_1$ 选 $L$ 得 $1$、选 $R$ 得 $0$，不偏离；$t_2$ 选 $R$ 得 $1$、选 $L$ 得 $0$，不偏离。得 $\{(L,R),(d,u),p=1,q=0\}$。
+
+\textbf{（IV）分离 $(R,L)$：$p=0,q=1$。} 在 $L$ 后 $p=0$ 时 $u$ 优于 $d$（$3(1-p)=3>1$）；在 $R$ 后 $q=1$ 时 $d$ 优于 $u$（$2(1-q)=0<4$）。接收者必为 $(u,d)$。检验：$t_1$ 选 $R$ 得 $4$、选 $L$ 得 $3$，不偏离；$t_2$ 选 $L$ 得 $3$、选 $R$ 得 $2$，不偏离。得 $\{(R,L),(u,d),p=0,q=1\}$。
+
+综上，4.4b 的全部纯战略混同与分离 PBE 为
+\[
+  \begin{aligned}
+    &\bigl\{(L,L),\ (u,u),\ p=0.5,\ q<2/5\bigr\},\\
+    &\bigl\{(R,R),\ (d,d),\ q=0.5,\ p>2/3\bigr\},\\
+    &\bigl\{(L,R),\ (d,u),\ p=1,\ q=0\bigr\},\\
+    &\bigl\{(R,L),\ (u,d),\ p=0,\ q=1\bigr\}.
+  \end{aligned}
+\]
+
+% =============================================================================
+\exer{4.5}
+求出习题 4.3(a) 和 (b) 中的所有纯战略精炼贝叶斯均衡。
+
+\sol 由 4.3(a)、4.3(b) 的支付结构，分别枚举全部纯战略 PBE（含混同、分离与混合/杂合中的纯战略情形）。
+
+\textbf{（A）习题 4.3(a)（两类型，信号 $L,R$，接收者行动 $u,d$）}
+
+接收者期望：在 $L$ 后 $E(u)=2p,\ E(d)=1-p$，故 $u$ 优于 $d\iff p>1/3$；在 $R$ 后 $E(u)=q,\ E(d)=2(1-q)$，故 $u$ 优于 $d\iff q>2/3$。
+发送者收益：$t_1$ 选 $L$ 得 $(u:1,\ d:2)$，选 $R$ 得 $(u:0,\ d:3)$；$t_2$ 选 $L$ 得 $(u:0,\ d:3)$，选 $R$ 得 $(u:1,\ d:2)$。
+
+\begin{enumerate}[leftmargin=1.6em]
+  \item 混同于 $R$ $(R,R)$：$q=0.5$（路径上），于是 $R$ 后 $d$ 严格优于 $u$，接收者必选 $d$。在 $L$ 后需选 $u$（否则 $t_2$ 偏离到 $L$ 得 $3$）。选 $u$ 要求 $p>1/3$。得
+    $\{(R,R),(u,d),q=0.5,p>1/3\}$。
+  \item 混同于 $L$ $(L,L)$：$p=0.5$，于是 $L$ 后 $u$ 严格优于 $d$，接收者必选 $u$。在 $R$ 后无论选 $u$ 还是 $d$，均有某类型偏离（$q>2/3$ 时 $t_2$ 偏离；$q<2/3$ 时 $t_1$ 偏离），故无混同于 $L$ 的 PBE。
+  \item 分离 $(L,R)$：$p=1,q=0$。$L$ 后 $u$ 优于 $d$，$R$ 后 $d$ 优于 $u$，接收者 $(u,d)$。检验两类型均不偏离：$t_1$ 选 $L$ 得 $1>0$，$t_2$ 选 $R$ 得 $2>0$。得
+    $\{(L,R),(u,d),p=1,q=0\}$。
+  \item 分离 $(R,L)$：$p=0,q=1$。$L$ 后 $d$ 优于 $u$，$R$ 后 $u$ 优于 $d$，接收者 $(d,u)$。检验：$t_1$ 选 $R$ 得 $0$，偏离到 $L$ 得 $d:2>0$，会偏离。故无此 PBE。
+\end{enumerate}
+故 4.3(a) 的全部纯战略 PBE 为 $\{(R,R),(u,d),q=0.5,p>1/3\}$ 与 $\{(L,R),(u,d),p=1,q=0\}$。
+
+\textbf{（B）习题 4.3(b)（三类型 $t_1,t_2,t_3$，概率均 $1/3$，信号 $L,R$，行动 $u,d$）}
+
+接收者期望：在 $L$ 后 $E(u)=1,E(d)=0$，故 $u$ 严格优于 $d$；在 $R$ 后 $E(u)=q_1+q_2,\ E(d)=1-(q_1+q_2)$，故 $u$ 优于 $d\iff q_1+q_2>1/2$。
+发送者收益：
+$t_1$: $L(u:1,d:1),\ R(u:0,d:0)$；
+$t_2$: $L(u:2,d:0),\ R(u:1,d:1)$；
+$t_3$: $L(u:1,d:0),\ R(u:0,d:2)$。
+
+逐一考察 $2^3=8$ 个纯发送者战略：
+\begin{enumerate}[leftmargin=1.6em]
+  \item $(L,L,L)$ 混同：$p_i=1/3$，$L$ 后必选 $u$。$R$ 后需选 $u$ 否则 $t_3$ 偏离到 $R$ 得 $2$。选 $u$ 要求 $q_1+q_2>1/2$。得
+    $\{(L,L,L),(u,u),p_i=1/3,q_1+q_2>1/2\}$。
+  \item $(L,L,R)$：$L$ 后 $p_1=p_2=1/2$ 必选 $u$；$R$ 后 $q_3=1$ 必选 $d$。检验：$t_1$ 偏离到 $R$ 得 $0<1$；$t_2$ 偏离到 $R$ 得 $1<2$；$t_3$ 偏离到 $L$ 得 $1<2$。得
+    $\{(L,L,R),(u,d),p=(1/2,1/2,0),q=(0,0,1)\}$。
+  \item $(L,R,R)$：$L$ 后 $p_1=1$，$u,d$ 无差异（接收者收益均为 $1$）；$R$ 后 $q_2=q_3=1/2$，无差异。为防止 $t_2$ 偏离到 $L$，接收者在 $L$ 后须选 $d$（此时 $t_2$ 选 $L$ 仅得 $0$）。在 $R$ 后 $u$ 或 $d$ 皆可（均给 $t_2,t_3$ 收益 $1$）。得
+    $\{(L,R,R),(d,\cdot),p=(1,0,0),q=(0,1/2,1/2)\}$（$R$ 后 $u$ 或 $d$ 均可）。
+  \item 其余五种纯战略（含 $(R,R,R)$、$(L,R,L)$、$(R,L,L)$、$(R,R,L)$、$(R,L,R)$）均至少有某一类型严格偏离，不能构成 PBE。
+\end{enumerate}
+故 4.3(b) 的全部纯战略 PBE 为上述三个（其中第三个含两种接收者行动选择）。
+
+% =============================================================================
+\exer{4.6}
+下面的信号博弈属于与图 4.1.1 相同类型的完全非完美信息动态博弈。（类型 $t_1$ 和 $t_2$ 可以看作图 4.1.1 中参与者 1 的行动 $L$ 和 $M$；如果信号博弈中的发送者选择了 $R$，则事实上的博弈就已经结束，与图 4.1.1 中参与者 1 选择 $R$ 的情况类似。）求出此信号博弈的（i）纯战略贝叶斯纳什均衡；（ii）纯战略精炼贝叶斯均衡。并分别将（i）和（ii）与图 4.1.1 中的纳什均衡及精炼贝叶斯均衡相比较。
+
+\sol 该信号博弈可如下刻画（其与图 4.1.1 完全同构：$t_1,t_2$ 对应图 4.1.1 中参与者 1 的行动 $L,M$，信号 $R$ 对应参与者 1 的行动 $R$，接收者的 $u,d$ 对应 $L',R'$；单元格为（发送者，接收者）收益）：
+
+\myfig{%
+\begin{tikzpicture}[scale=0.9, every node/.style={font=\small}]
+  \node[pnode] (nat) at (0,0) {};
+  \node[right=6pt of nat, nodlab] {NATURE};
+  \node[pnode] (t1) at (0,2.6) {};
+  \node[above=3pt of t1, elab] {$t_1\ (.5)$};
+  \node[pnode] (t2) at (0,-2.6) {};
+  \node[below=3pt of t2, elab] {$t_2\ (.5)$};
+  \draw[branch] (nat) -- (t1) node[pos=0.5, elab, left=3pt] {$.5$};
+  \draw[branch] (nat) -- (t2) node[pos=0.5, elab, left=3pt] {$.5$};
+  \node[pnode] (L1) at (-4.4,2.6) {};
+  \node[pnode] (R1) at (4.4,2.6) {};
+  \node[pnode] (L2) at (-4.4,-2.6) {};
+  \node[pnode] (R2) at (4.4,-2.6) {};
+  \draw[infoset] (L1) -- (L2) node[pos=0.5, elab] {Receiver};
+  \draw[branch] (t1) -- (L1) node[pos=0.5, elab, above] {$L$};
+  \draw[branch] (t1) -- (R1) node[pos=0.5, elab, above] {$R$};
+  \draw[branch] (t2) -- (L2) node[pos=0.5, elab, below] {$L$};
+  \draw[branch] (t2) -- (R2) node[pos=0.5, elab, below] {$R$};
+  \node[tnode] (L1u) at (-6.2,3.4) {}; \node[tnode] (L1d) at (-6.2,1.8) {};
+  \draw[branch] (L1) -- (L1u) node[pos=0.5, elab, right=1pt] {$u$};
+  \draw[branch] (L1) -- (L1d) node[pos=0.5, elab, right=1pt] {$d$};
+  \node[pay, left=4pt of L1u] {$2,\,1$}; \node[pay, left=4pt of L1d] {$0,\,0$};
+  \node[tnode] (L2u) at (-6.2,-1.8) {}; \node[tnode] (L2d) at (-6.2,-3.4) {};
+  \draw[branch] (L2) -- (L2u) node[pos=0.5, elab, right=1pt] {$u$};
+  \draw[branch] (L2) -- (L2d) node[pos=0.5, elab, right=1pt] {$d$};
+  \node[pay, left=4pt of L2u] {$0,\,2$}; \node[pay, left=4pt of L2d] {$0,\,1$};
+  \node[tnode] (R1a) at (6.2,2.6) {};
+  \draw[branch] (R1) -- (R1a) node[pos=0.5, elab, left=1pt] {$a$};
+  \node[pay, right=4pt of R1a] {$1,\,3$};
+  \node[tnode] (R2a) at (6.2,-2.6) {};
+  \draw[branch] (R2) -- (R2a) node[pos=0.5, elab, left=1pt] {$a$};
+  \node[pay, right=4pt of R2a] {$1,\,3$};
+\end{tikzpicture}%
+}{4.6 的信号博弈（与图 4.1.1 同构；选 $R$ 则博弈直接结束）}
+
+记接收者在 $L$ 信息集（信号 $L$ 后、汇集两类型）上对 $t_1$ 的后验概率为 $p$，对 $t_2$ 为 $1-p$。接收者期望收益：
+\[
+  E(u)=p\cdot 1+(1-p)\cdot 2=2-p,\qquad E(d)=p\cdot 0+(1-p)\cdot 1=1-p .
+\]\indent
+因为对任意 $p$ 都有 $2-p>1-p$，接收者在 $L$ 信息集上严格偏好 $u$（即图 4.1.1 中的 $L'$）。
+发送者收益为：类型 $t_1$ 选 $L$ 得 $2$、选 $R$ 得 $1$，故严格偏好 $L$；类型 $t_2$ 选 $L$ 得 $0$、选 $R$ 得 $1$，故严格偏好 $R$。
+
+\noindent\textbf{（i）纯战略贝叶斯纳什均衡（BNE）}
+
+接收者在 $L$ 后总是选 $u$。给定此，类型 $t_1$ 严格偏好 $L$（$2>1$），类型 $t_2$ 严格偏好 $R$（$1>0$）。因此发送者的唯一最优反应是分离型的 $(L,R)$：$t_1$ 发 $L$、$t_2$ 发 $R$。此时 $L$ 在路径之上，$p=1$，接收者选 $u$ 确为最优反应（$E(u)=1>E(d)=0$）。故唯一的纯战略 BNE 为
+\[
+  \bigl\{\,(L,R),\ \text{接收者 }u\ (\text{在 }L\text{ 后}),\ p=1\,\bigr\}.
+\]
+
+\noindent\textbf{（ii）纯战略精炼贝叶斯均衡（PBE）}
+
+由于唯一的候选均衡 $(L,R)$ 已在路径上满足贝叶斯法则（$p=1$）与接收者的序贯理性，故它同时就是 PBE；反之离路径的混同型 $(R,R)$ 因 $t_1$ 会严格偏离到 $L$（$2>1$）而不是 PBE。因此纯战略 PBE 为
+\[
+  \boxed{\ \bigl\{\,(L,R),\ u,\ p=1\,\bigr\}\ } .
+\]
+
+\noindent\textbf{与图 4.1.1 的纳什均衡及精炼贝叶斯均衡之比较}
+
+图 4.1.1 中，参与者 1 的行动 $L$ 对应 $t_1$ 发 $L$、行动 $M$ 对应 $t_2$ 发 $L$、行动 $R$ 对应发送者发 $R$。接收者在信息集上的期望收益比较为
+\[
+  E(L')=2-p>1-p=E(R').
+\]
+\indent 故 $L'$ 严格占优，参与者 2 必选 $L'$。于是参与者 1 的收益比较为
+\[
+  u_1(L)=2>u_1(R)=1>u_1(M)=0.
+\]
+\indent 图 4.1.1 的纳什均衡与精炼贝叶斯均衡都只有 $(L,L')$ 一个（此时 $p=1$）。
+
+两者的比较：图 4.1.1 的唯一 BNE $(L,L')$ 与 4.6 的唯一 BNE $\{(L,R),u\}$ 一一对应，其中 $L\leftrightarrow u$，$L'\leftrightarrow L$；二者的唯一 PBE 集合也相同，都只有这一个。这正是题目所说的“同构”：4.6 的信号博弈把图 4.1.1 中参与者 1 的 $L$ 与 $M$ 两个行动替换为“由自然赋权后发送者发 $L$”，并把选 $R$（博弈结束）显式化，因此两者的均衡集合完全一致——信号博弈的表述并未增加或减少均衡，只是把图 4.1.1 中“参与者 1 选 $M$”这一分支在信号博弈中重写为“类型 $t_2$ 发 $L$”。
+
+% =============================================================================
+\exer{4.7}
+画出两类型就业市场信号模型中的无差异曲线和生产函数，并写出它的一个准分离精炼贝叶斯均衡，其中高能力工人随机选择信号。
+
+\sol 两类型 $(H,L)$，自然赋予 $H$ 的概率为 $q$。工人的收益为 $w-c(\eta,e)$，企业的收益为 $y(\eta,e)-w$，且工资满足 $w(e)=\mu(H|e)\,y(H,e)+[1-\mu(H|e)]\,y(L,e)$。关键假设：低能力工人的边际教育成本更高，故其无差异曲线更陡。
+
+\myfig{%
+\begin{tikzpicture}[scale=0.95, every node/.style={font=\small}]
+  \draw[->, branch] (0,0) -- (8.4,0) node[right] {$e$};
+  \draw[->, branch] (0,0) -- (0,7.0) node[above] {$w$};
+  % 生产函数 y(L,e) 与 y(H,e)
+  \draw[contarc, color=accent] (0.4,0.33) -- (7.0,1.93)
+        node[pos=0.90, right, color=accent] {$y(L,e)$};
+  \draw[contarc, color=maincolor] (0.4,0.57) -- (7.0,3.58)
+        node[pos=0.90, right, color=maincolor] {$y(H,e)$};
+  % 混同点处的工资线 w(e)（与 I_L 在 e_L 相切）
+  \draw[contarc, color=black!60] (1.0,1.10) -- (4.6,2.90)
+        node[pos=0.97, right, color=black!60] {$w(e)$};
+  % 低能力工人无差异曲线 I_L：较陡，向右上方
+  \draw[color=rulegray, line width=0.7pt, dashed]
+       (0.4,1.62) .. controls (2.0,2.35) and (3.6,3.35) .. (5.6,4.93);
+  \node[color=rulegray] at (4.30,4.28) {$I_L$};
+  % 高能力工人无差异曲线 I_H：较平缓，向右上方
+  \draw[color=dotgray, line width=0.7pt, dashed]
+       (0.4,1.27) .. controls (2.2,1.85) and (4.4,2.85) .. (7.0,4.45);
+  \node[color=dotgray] at (6.30,4.28) {$I_H$};
+  % 混同点 (e_L,w_L) 与分离点 (e_H,y(H,e_H))
+  \filldraw[dotgray] (2.6,1.90) circle (2pt) node[below left] {$(e_L,\,w_L)$};
+  \filldraw[accent] (5.21,3.40) circle (2pt) node[above right] {$(e_H,\,y(H,e_H))$};
+  \draw[dotted, color=dotgray] (2.6,1.90) -- (2.6,0) node[below] {$e_L$};
+  \draw[dotted, color=accent] (5.21,3.40) -- (5.21,0) node[below] {$e_H$};
+\end{tikzpicture}%
+}{4.7 的生产函数、工资线与两类型无差异曲线（准分离，高能力工人随机化）}
+
+准分离均衡的几何结构如下：两类型的无差异曲线都向上倾斜，且低能力者的 $I_L$ 比高能力者的 $I_H$ 更陡（因 $c'_e(L,e)>c'_e(H,e)$）。混同点 $(e_L,w_L)$ 同时位于 $I_L$ 与 $I_H$ 上：$I_L$ 在该点与工资线 $w(e)=\mu\,y(H,e)+(1-\mu)\,y(L,e)$ 相切（低能力者在此得到最大收益，因而确定地选择 $e_L$），而 $I_H$ 经过该点（高能力者在 $e_L$ 与 $e_H$ 之间无差异）。分离点 $(e_H,y(H,e_H))$ 位于 $y(H,e)$ 上：只有高能力者到达 $e_H$，故 $\mu(H|e_H)=1$，$w(e_H)=y(H,e_H)$。
+
+\textbf{准分离精炼贝叶斯均衡（高能力工人随机化）}
+
+令低能力工人确定地选择教育水平 $e_L$，高能力工人随机化：以概率 $\pi$ 选择 $e_L$（与低能力混同），以概率 $1-\pi$ 选择更高的分离水平 $e_H$（只有高能力工人发出此信号）。企业的推断与工资为：
+\[
+  \mu(H|e_L)=\frac{q\pi}{q\pi+(1-q)}=\frac{q\pi}{1-q+q\pi},\qquad
+  w(e_L)=\mu(H|e_L)\,y(H,e_L)+[1-\mu(H|e_L)]\,y(L,e_L),
+\]\indent
+\[
+  \mu(H|e_H)=1,\qquad w(e_H)=y(H,e_H).
+\]\indent
+离路径教育水平 $e\notin\{e_L,e_H\}$ 时，企业推断为低能力，$\mu(H|e)=0$，从而 $w(e)=y(L,e)$。
+
+高能力工人无差异条件（使其随机化的最优性）为
+\[
+  w(e_L)-c(H,e_L)=w(e_H)-c(H,e_H)=y(H,e_H)-c(H,e_H),
+\]\indent
+即 $I_H$ 同时通过混同点与分离点；该式（连同 $\mu(H|e_L)$ 与 $w(e_L)$ 的定义）唯一确定概率 $\pi$ 与教育水平 $e_L$。低能力工人不偏离到 $e_H$ 的条件为
+\[
+  w(e_L)-c(L,e_L)\;\ge\; w(e_H)-c(L,e_H),
+\]\indent
+即在图上 $I_L$ 在 $e_H$ 处不低于工资线；由于 $c_L(e)$ 比 $c_H(e)$ 更陡（低能力者接受更高教育的成本更高），且 $w(e_H)=y(H,e_H)$ 仅补偿高能力者，上式成立（低能力者模仿高教育得不偿失）。
+
+于是这一准分离精炼贝叶斯均衡由
+\[
+  \bigl\{m(L)=e_L,\ m(H)=\text{以 }\pi\text{ 选 }e_L\text{、以 }1-\pi\text{ 选 }e_H,\ 
+  w(e_L),\ w(e_H),\ \mu(H|e_L),\ \mu(H|e_H)=1\bigr\}
+\]\indent
+构成，其中 $\pi$ 由高能力工人的无差异方程决定。它正是教科书中低能力随机化模型（4.2.9）的“互补情形”——此处由高能力工人随机化而低能力工人完全分离。
+
+% =============================================================================
+\exer{4.8}
+解出下面的空谈博弈的纯战略精炼贝叶斯均衡。自然赋予每一种类型的概率相等。和图 4.3.1 一样，每一个单元格的第一个值表示发送者收益，第二个值表示接收者收益（但该图不表示一个标准式博弈，而只是给出每一类型—行动组合下参与者的收益情况）。
+
+\sol 先区分三类对象：发送者的类型是 $t_1,t_2,t_3$；接收者的行动是 $a_1,a_2,a_3$；发送者发出的是空谈信号 $m\in M$。按本章最简单空谈模型的设定，信号集 $M=T=\{m_1,m_2,m_3\}$。下表的行是\emph{接收者行动}，列是\emph{发送者类型}，每格按“发送者收益，接收者收益”排列。
+
+\begin{paytab}
+\begin{tabular}{cccc}
+ & \multicolumn{3}{c}{\pthead{发送者类型}}\\
+\cline{2-4}
+\pthead{接收者行动} & $t_1$ & $t_2$ & $t_3$\\[2pt]
+\hline
+$a_1$ & $0,\,1$ & $0,\,0$ & $0,\,0$\\[4pt]
+\hline
+$a_2$ & $1,\,0$ & $1,\,2$ & $1,\,0$\\[4pt]
+\hline
+$a_3$ & $0,\,0$ & $0,\,0$ & $2,\,1$\\[4pt]
+\hline
+\end{tabular}
+\end{paytab}
+
+若接收者在信号 $m$ 后的后验为 $\mu=(\mu_1,\mu_2,\mu_3)$，其三种行动的期望收益分别为
+\[
+  U_R(a_1|\mu)=\mu_1,\qquad U_R(a_2|\mu)=2\mu_2,\qquad U_R(a_3|\mu)=\mu_3.
+\]\indent
+发送者类型 $t_1,t_2$ 在接收者选择 $a_2$ 时收益为 $1$，选 $a_1$ 或 $a_3$ 时收益为 $0$；类型 $t_3$ 对应三种行动的收益为 $0,1,2$。发送者选择的是信号，不是表中的接收者行动；不同信号的作用只通过接收者的后验和行动体现。
+
+\textbf{均衡一：完全混同。} 三种类型都发送同一个信号 $m_1$。在 $m_1$ 后，贝叶斯法则给出先验 $\mu=(1/3,1/3,1/3)$，接收者的期望收益为
+\[
+  U_R(a_1)=\frac13,\qquad U_R(a_2)=\frac23,\qquad U_R(a_3)=\frac13,
+\]\indent
+故接收者选择 $a_2$。三种类型的发送者均得到 $1$。对未使用的 $m_2,m_3$，指定后验 $\mu=(1,0,0)$；接收者最优选择 $a_1$。任何类型偏离到这些信号都只能得到 $0$，因此没有有利偏离。故此完全混同策略连同上述信念也是一个纯战略 PBE。
+
+\textbf{均衡二：$t_1,t_2$ 混同，$t_3$ 分离。} 令 $t_1,t_2$ 发送 $m_1$，$t_3$ 发送 $m_3$。在 $m_1$ 后的后验是 $(1/2,1/2,0)$，接收者收益为 $(1/2,1,0)$，故选 $a_2$；在 $m_3$ 后后验为 $(0,0,1)$，接收者选择 $a_3$。未使用的 $m_2$ 仍指定后验 $(1,0,0)$，接收者选 $a_1$。类型 $t_1,t_2$ 留在 $m_1$ 得 $1$，偏离到 $m_3$ 或 $m_2$ 分别只得 $0$；类型 $t_3$ 留在 $m_3$ 得 $2$，偏离到 $m_1$ 得 $1$、到 $m_2$ 得 $0$。因此也构成 PBE。
+
+\textbf{排除其他类型分组。} 完全分离时，$t_1$ 单独发送的信号使接收者选择 $a_1$，而 $t_1$ 可改发 $t_2$ 的信号并诱使接收者选 $a_2$，从而把收益从 $0$ 提高到 $1$。若 $t_1,t_3$ 混同，则接收者在该信号后只能在 $a_1,a_3$ 间选择（两者接收者收益相同），而 $t_1$ 可偏离到单独的 $t_2$ 信号、获得 $1$。若 $t_2,t_3$ 混同，则接收者在混同信号后选 $a_2$，$t_1$ 会从其单独信号偏离并获得 $1$。所以除完全混同与 $t_1,t_2$ 混同、$t_3$ 分离外，没有其他类型分组可构成纯战略 PBE（信号名称互换不改变均衡结果）。
+
+因此原解“纯战略 PBE 恰有一个”的结论不成立：在允许标准 PBE 离轨信念的定义下，至少有上述两个均衡结果。完全混同之所以成立，关键是对离轨信号可以指定支持 $a_1$ 的信念；不能把离轨信号自动解释成“偏离类型已被识别”。
+
+% =============================================================================
+\exer{4.9}
+考虑第 4.3.A 节讨论的克劳福德和索贝尔空谈模型的例子：发送者的类型均匀分布于从 $0$ 到 $1$ 的区间（$T=[0,1]$，对 $T$ 中所有 $t$ 密度均为 $1$）；行动空间是 $[0,1]$ 的区间（$A=[0,1]$），接收者的收益函数为 $U_R(t,a)=-(a-t)^2$，发送者的收益函数为 $U_S(t,a)=-[a-(t+b)]^2$。对什么样的 $b$ 值，存在三段均衡？在三段均衡和二段均衡中，接收者的期望收益哪个更高？哪些类型的发送者在三段均衡中能够得到更高的收益？
+
+\sol 由 4.3.A 节，n 段部分混同均衡存在的充要条件为 $n(n-1)\cdot 2b<1$；若记第一段长度为 $d$，则 $n\cdot d+n(n-1)\cdot 2b=1$。
+
+\textbf{（1）三段均衡存在的 $b$}：令 $n=3$，条件为
+\[
+  3\cdot 2\cdot 2b=12b<1 \quad\Longrightarrow\quad b<\frac1{12}.
+\]\indent
+故当且仅当 $b<1/12$ 时存在三段均衡（当然也要求 $b<1/4$ 以保证二段均衡存在，而 $b<1/12$ 已蕴含之）。
+
+\textbf{（2）接收者期望收益的比较}
+
+在 n 段均衡中，第 $k$ 段长度依次为 $c_k=d+(k-1)4b$，且 $\sum c_k=1$。接收者在该段内取中点行动 $a=(x_{k-1}+x_k)/2$，其对 $t$ 均匀分布的期望收益为 $-\frac{c_k^2}{12}$（区间方差）。于是接收者事先的期望收益（对先验均匀分布）为
+\[
+  EU_R=-\frac1{12}\sum_{k=1}^{n} c_k^{\,3}.
+\]\indent
+\begin{enumerate}[leftmargin=1.6em]
+  \item 二段（$n=2$）：$c_1=\frac{1-4b}{2},\ c_2=\frac{1+4b}{2}$，
+  \[
+    EU_R^{(2)}=-\frac1{12}\cdot\frac{(1-4b)^3+(1+4b)^3}{8}
+    =-\frac{1+48b^2}{48}.
+  \]\indent
+  \item 三段（$n=3$）：$c_1=\frac{1-12b}{3},\ c_2=\frac13,\ c_3=\frac{1+12b}{3}$，
+  \[
+    EU_R^{(3)}=-\frac1{12}\cdot\frac{(1-12b)^3+1+(1+12b)^3}{27}
+    =-\frac{1+288b^2}{108}.
+  \]\indent
+\end{enumerate}
+比较二者（在 $b<1/12$ 范围内）：
+\[
+\begin{aligned}
+  EU_R^{(3)}>EU_R^{(2)}
+  &\iff \frac{1+288b^2}{108}<\frac{1+48b^2}{48}\\
+  &\iff 48(1+288b^2)<108(1+48b^2)\\
+  &\iff b^2<\frac1{144},
+\end{aligned}
+\]\indent
+即 $b<1/12$（恰为三段均衡的存在区间）。因此在三段均衡存在的全部参数范围内，接收者在三段均衡中的期望收益严格高于二段均衡。
+
+\textbf{（3）哪些发送者类型在三段均衡中收益更高}
+
+发送者的理想行动为 $a=t+b$，其收益 $U_S=-(a-t-b)^2$。在任意 n 段均衡中，类型 $t$ 落在某一段内，接收者给出的行动为该段中点 $a(t)$；$|a(t)-(t+b)|$ 至多为该段长度的一半。三段均衡把类型空间划分得更细，每段长度更小，故对每个类型都有
+\[
+  |a^{(3)}(t)-(t+b)|\le |a^{(2)}(t)-(t+b)|
+\]\indent
+（等号仅在测度为 $0$ 的分界点处成立）。因此所有发送者类型在三段均衡中都得到弱更高、几乎处处严格更高的收益；三段均衡比二段均衡实现了更充分的交流，发送者与接收者双方都获益。
+
+% =============================================================================
+\exer{4.10}
+两个合伙人必须就其合伙企业进行清算。合伙人 1 现在拥有的权益份额为 $s$，合伙人 2 拥有 $1-s$。两合伙人同意进行如下博弈：合伙人 1 提出一个价格 $p$，然后合伙人 2 可以选择以 $ps$ 的价格购买合伙人 1 的股份，或以 $p(1-s)$ 的价格将自己的股份卖给合伙人 1。假设两个合伙人对拥有的全部企业价值的估价相互独立，且服从 $[0,1]$ 区间的均匀分布，以上是共同知识。但每一合伙人的估价是私人信息。求出博弈的精炼贝叶斯均衡。
+
+\sol 记合伙人 1、2 对企业总价值的估价为 $v_1,v_2$，均独立服从 $U[0,1]$，且为私人信息。阶段 1 由 1 出价 $p$，阶段 2 由 2 选择：买下 1 的股份（付 $ps$，得价值为 $s v_2$ 的股份）或把自身股份卖给 1（收 $p(1-s)$，放弃价值 $(1-s)v_2$ 的股份）。
+
+\myfig{%
+\begin{tikzpicture}[scale=0.95, every node/.style={font=\small}]
+  \node[pnode] (p1) at (-0.8,0) {};
+  \node[above=2pt of p1, nodlab] {1};
+  \node[pnode] (p2) at (1.8,-3.0) {};
+  \node[right=4pt of p2, nodlab] {2};
+  \node[tnode] (buy)  at (-1.4,-5.6) {};
+  \node[tnode] (sell) at (5.0,-5.6) {};
+  \draw[branch] (p1) -- (p2) node[pos=0.5, elab, above] {$p$};
+  \draw[branch] (p2) -- (buy)  node[pos=0.55, elab, left=2pt] {buy};
+  \draw[branch] (p2) -- (sell) node[pos=0.55, elab, right=2pt] {sell};
+  \node[pay, below=4pt of buy, align=center] {$ps-sv_1$\\$sv_2-ps$};
+  \node[pay, below=4pt of sell, align=center] {$(1-s)v_1-p(1-s)$\\$p(1-s)-(1-s)v_2$};
+\end{tikzpicture}%
+}{4.10 的清算博弈树}
+
+给定出价 $p$，合伙人 2 选择买还是卖，比较二者收益：
+\[
+  (sv_2-ps)-\bigl[p(1-s)-(1-s)v_2\bigr]=v_2-p .
+\]\indent
+故 2 买当且仅当 $v_2\ge p$（在 $v_2=p$ 时无差异，取“买”或“卖”均可），卖当且仅当 $v_2<p$。由于 $v_2\sim U[0,1]$ 且与 $v_1$ 独立，给定 $p$，2 买的概率为 $1-p$、卖的概率为 $p$。
+
+合伙人 1 在已知 $v_1$ 时选择 $p$ 最大化期望收益：
+\[
+  E_1(p)=\Pr(\text{买})\cdot(ps-sv_1)+\Pr(\text{卖})\cdot\bigl((1-s)v_1-p(1-s)\bigr).
+\]\indent
+代入概率并整理：
+\[
+  E_1(p)=(1-p)(ps-sv_1)+p(1-s)(v_1-p)
+       =(s-p)(p-v_1).
+\]\indent
+对 $p$ 求一阶条件（视 $v_1$ 为给定）：
+\[
+  \frac{\partial E_1}{\partial p}=s+v_1-2p=0
+  \quad\Longrightarrow\quad
+  p^*(v_1)=\frac{s+v_1}{2}.
+\]\indent
+二阶条件 $\partial^2 E_1/\partial p^2=-2<0$，确为最大。$p^*(v_1)\in[0,1]$ 自动满足（$s,v_1\in[0,1]$）。
+
+因此精炼贝叶斯均衡为：
+\[
+  \boxed{\;m_1(v_1)=\frac{s+v_1}{2};\qquad
+  \text{2 在观察到 }p\text{ 后，若 }v_2\ge p\text{ 则买，若 }v_2<p\text{ 则卖。}\;}
+\]\indent
+（2 在此决策中并不依赖对 $v_1$ 的任何信念；在均衡路径上由 $p=(s+v_1)/2$ 可反推 $v_1=2p-s$，离路径信念任意。）
+
+% =============================================================================
+\exer{4.11}
+买方和卖方对商品的估价分别为 $v_b$ 和 $v_s$。交易能够带来净收益（即 $v_b>v_s$）是共同知识，但收益的大小却是私人信息，具体情况如下：卖方的估价服从 $[0,1]$ 区间的均匀分布；买方的估价 $v_b=k\cdot v_s$（$k>1$ 是共同知识）；卖方了解 $v_s$（从而知道 $v_b$），但买方却不清楚 $v_b$（或 $v_s$）。假设买方给出一个单一买价 $p$，卖方既可以接受，又可以拒绝。当 $k<2$ 时，博弈精炼贝叶斯均衡是什么？$k>2$ 时呢？
+
+\sol 卖方估价 $v_s\sim U[0,1]$（私人信息），故买方只知道 $v_s\in[0,1]$、$v_b=kv_s\sim U[0,k]$。买方出价 $p$，卖方接受当且仅当 $p\ge v_s$（否则拒绝，双方收益为 $0$）。
+
+给定买方出价 $p\in[0,1]$，卖方接受的条件是 $v_s\le p$，接受概率为 $p$；在接受的条件下 $v_s$ 在 $[0,p]$ 上均匀分布，均值为 $p/2$。于是买方的期望收益为
+\[
+  E_b(p)=\Pr(v_s\le p)\cdot\bigl(k\cdot\tfrac{p}{2}-p\bigr)
+        =p^2\Bigl(\frac{k}{2}-1\Bigr).
+\]\indent
+若 $p>1$，则所有卖方都接受，买方期望收益为 $E_b=\frac{k}{2}-p$。
+
+\textbf{情形一：$k<2$}（即 $k/2-1<0$）。对任一 $p>0$ 都有 $E_b(p)<0$，故买方最优选择为 $p=0$（此时卖方接受当且仅当 $v_s\le0$，实际不发生交易，买方收益为 $0$）。精炼贝叶斯均衡为：
+\[
+  \boxed{\;p^*=0,\quad \text{卖方接受当且仅当 }v_s\le p^*;\quad \text{无交易发生。}\;}
+\]\indent
+这是“逆向选择/无交易”型均衡。
+
+\textbf{情形二：$k>2$}（即 $k/2-1>0$）。对 $p\in[0,1]$，$E_b(p)=p^2(k/2-1)$ 随 $p$ 递增，在 $p=1$ 处达到 $k/2-1$；若 $p>1$，则 $E_b(=k/2-p)$ 随 $p$ 递减，且 $p=1$ 时最大。故买方最优出价 $p^*=1$（此时 $v_s\le1$ 恒成立，所有卖方接受）。精炼贝叶斯均衡为：
+\[
+  \boxed{\;p^*=1,\quad \text{卖方接受当且仅当 }v_s\le p^*\;(\text{即总是接受});\quad \text{全部交易。}\;}
+\]\indent
+买方期望收益为 $k/2-1>0$。
+
+% =============================================================================
+\exer{4.12}
+本题考虑第 4.3.B 节分析的两阶段谈判博弈无限期进行下去的情况……证明 $b=2d$、$\pi_1=c\pi_0$ 所给出的截断比例 $c$（以及 $\pi_2=c\pi_1$ 等等），并且当企业利润服从 $0$ 到 $\pi$ 之间的均匀分布时，工会期望收益的现值为 $V(\pi)=d\pi$。
+
+\sol 设当前利润上界为 $\bar\pi$，工会的（静态）工资要价为 $w=b\bar\pi$，企业当且仅当其利润 $\pi\ge c\bar\pi$ 时接受（拒绝的类型集合对应新的上界 $\pi_1=c\bar\pi$）。记工会期望收益现值 $V(\bar\pi)=d\bar\pi$（$d$ 为常数）。折现因子记为 $\delta$。
+
+\textbf{（1）企业对工资的临界反应（决定 $c$）}
+
+利润为 $\pi$ 的企业，在接受与拒绝之间无差异的临界点为 $\pi=c\bar\pi$。若接受，当期收益为 $\pi-b\bar\pi$；若拒绝，则下期上界变为 $c\bar\pi$，而位于新分布顶端的该企业（$\pi=c\bar\pi\ge c\cdot(c\bar\pi)$）将在下期立即接受，得到当期收益 $c\bar\pi-b(c\bar\pi)$，折现后为 $\delta\,c(1-b)\bar\pi$。无差异条件：
+\[
+  c\bar\pi-b\bar\pi=\delta\,c(1-b)\bar\pi
+  \;\Longrightarrow\;
+  c-b=\delta c(1-b)
+  \;\Longrightarrow\;
+  c(1-\delta)=b(1-\delta c). \tag{1}
+\]
+
+\textbf{（2）工会的期望收益与 $d$}
+
+当上界为 $\bar\pi$ 时，比例为 $1-c$ 的企业接受，工会得 $b\bar\pi$；比例为 $c$ 的企业拒绝，工会当期得 $0$ 并在下期获得现值 $\delta V(c\bar\pi)=\delta d(c\bar\pi)$。故
+\[
+  d\bar\pi=(1-c)b\bar\pi+c\,\delta d(c\bar\pi)
+  \;\Longrightarrow\;
+  d=(1-c)b+c^2\delta d
+  \;\Longrightarrow\;
+  d=\frac{(1-c)b}{1-c^2\delta}. \tag{2}
+\]
+
+\textbf{（3）工会最优工资政策给出 $b=2d$ 与 $c$}
+
+工会通过选择 $b$（从而经 (1) 决定 $c$）最大化 $d$。由 (1) 得 $b=\dfrac{c(1-\delta)}{1-\delta c}$，代入 (2) 后将 $d$ 视为 $c$ 的函数并对 $c$ 取一阶条件，可得
+\[
+  \delta c^2-2c+1=0,
+\]\indent
+其判别式为 $4(1-\delta)>0$，取满足 $c\in(0,1)$ 的根：
+\[
+  c=\frac{1-\sqrt{1-\delta}}{\delta}.
+\]\indent
+由此式与 (2) 立刻有 $1-c^2\delta=2(1-c)$，从而 $d=\dfrac{(1-c)b}{2(1-c)}=\dfrac{b}{2}$，即
+\[
+  \boxed{\,b=2d\,}.
+\]\indent
+同时由 (1) 可得 $b$ 的显式表达：利用 $1-\delta c=\sqrt{1-\delta}$，
+\[
+  b=\frac{c(1-\delta)}{1-\delta c}
+    =\frac{\frac{1-\sqrt{1-\delta}}{\delta}(1-\delta)}{\sqrt{1-\delta}}
+    =\frac{\sqrt{1-\delta}}{1+\sqrt{1-\delta}}.
+\]\indent
+综上，静态精炼贝叶斯均衡中，工会的开价与参数满足
+\begin{align*}
+  w(\bar\pi)&=b\bar\pi,
+  &b&=\frac{\sqrt{1-\delta}}{1+\sqrt{1-\delta}}=2d,\\
+  c&=\frac{1-\sqrt{1-\delta}}{\delta},
+  &V(\pi)&=d\pi.
+\end{align*}\indent
+企业当且仅当 $\pi\ge c\bar\pi$ 时接受。上界从 $\bar\pi_0=\pi_0$ 开始，并按 $\bar\pi_{t+1}=c\bar\pi_t$ 递减。
+
+% =============================================================================
+\exer{4.13}
+企业和工会进行下面的两阶段谈判博弈。企业利润 $\pi$ 服从 $0$ 到 $1$ 之间的均匀分布，工会的保留工资为 $w_r$（$0<w_r<1/2$），以上为共同知识，只有企业才了解 $\pi$ 的真实值。求出下面博弈的精炼贝叶斯均衡：
+\begin{enumerate}[leftmargin=1.6em, label=(\arabic*)]
+  \item 在第一阶段的开始，工会向企业提出一个工资要价 $w_1$；
+  \item 企业或接受或拒绝 $w_1$。若接受，则两阶段都开工生产，工会收益为 $2w_1$，企业收益为 $2(\pi-w_1)$。若拒绝，第一阶段无产出，双方收益均为 $0$；
+  \item 在第二阶段的开始（假定企业拒绝了 $w_1$），企业向工会提出一个出价 $w_2$；
+  \item 工会或接受或拒绝 $w_2$。若接受，第二阶段产出，工会收益为 $w_2$，企业收益为 $\pi-w_2$。若拒绝，工会赚得其保留工资 $w_r$，企业关闭，收益为 $0$。
+\end{enumerate}
+
+\sol 用逆向归纳，先解第二阶段。给定企业出价 $w_2$，工会接受当且仅当 $w_2\ge w_r$（拒绝则得 $w_r$）。企业为使自身第二期收益 $\pi-w_2$ 最大，在满足工会接受条件下取最小出价 $w_2=w_r$，故第二期均衡结果固定为：企业出价 $w_2=w_r$，工会接受，企业得 $\pi-w_r$，工会得 $w_r$。
+
+回到第一阶段。企业已知 $\pi$，面对工会要价 $w_1$，比较：
+\[
+  \text{接受： }2(\pi-w_1),\qquad
+  \text{拒绝： }(\pi-w_r)\ \text{（第二期收益）}.
+\]\indent
+企业接受当且仅当 $2(\pi-w_1)\ge \pi-w_r$，即
+\[
+  \pi\ge 2w_1-w_r \equiv \pi^* .
+\]\indent
+故企业接受当且仅当 $\pi\ge \pi^*$（假设 $w_1$ 使 $\pi^*\in[0,1]$）。工会知道 $\pi\sim U[0,1]$，因此比例为 $1-\pi^*$ 的企业接受（工会得 $2w_1$），比例为 $\pi^*$ 的企业拒绝（工会进入第二期得 $w_r$）。工会的期望收益为
+\[
+  E(w_1)=(1-\pi^*)\cdot 2w_1+\pi^*\cdot w_r,
+  \qquad \pi^*=2w_1-w_r.
+\]\indent
+代入并整理：
+\[
+  E(w_1)=2w_1(1-2w_1+w_r)+(2w_1-w_r)w_r
+        =-4w_1^2+2w_1(1+2w_r)-w_r^2.
+\]\indent
+对 $w_1$ 求一阶条件：
+\[
+  \frac{dE}{dw_1}=-8w_1+2(1+2w_r)=0
+  \;\Longrightarrow\;
+  w_1^*=\frac{1+2w_r}{4}=\frac14+\frac{w_r}{2}.
+\]\indent
+二阶条件 $-8<0$，为最大；且 $w_r/2\le w_1^*\le(1+w_r)/2$ 在 $0<w_r<1/2$ 时成立。相应的接受门槛
+\[
+  \pi^*=2w_1^*-w_r=2\Bigl(\frac14+\frac{w_r}{2}\Bigr)-w_r=\frac12.
+\]\indent
+即无论 $w_r$ 取何值，企业接受第一期要价的临界利润恒为 $1/2$。
+
+因此精炼贝叶斯均衡为：
+\[
+  \boxed{\;
+  \begin{gathered}
+  \text{工会第一期要价 }w_1^*=\frac{1+2w_r}{4};\quad
+  \text{企业当且仅当 }\pi\ge \tfrac12\text{ 时接受};\\
+  \text{若拒绝，第二期企业出价 }w_2=w_r\text{，工会接受。}
+  \end{gathered}
+  \;}
+\]
+
+% =============================================================================
+\exer{4.14}
+纳莱巴夫（Nalebuff，1987）分析了下面的原告和被告之间在开庭审理前谈判的模型。如果案件交到法庭，被告被迫支付给原告损害赔偿 $d$，$d$ 服从从 $[0,1]$ 区间的均匀分布，只有被告才知道 $d$ 的真值，以上是共同知识。交到法庭则使原告花费 $c<1/2$，但（为简单起见）不增加被告的成本。博弈时间顺序如下：（1）原告提出一个解决方案要约 $s$；（2）被告选择接受和解（这时原告的收益为 $s$，被告的收益为 $-s$）或者拒绝；（3）如果被告拒绝 $s$，则原告决定到法庭起诉，这时原告的收益为 $d-c$，被告的收益为 $-d$，或是放弃起诉，这种情况下双方参与者的收益都为 $0$。
+
+在第（3）阶段，如果原告相信存在一些 $d$ 的值，当且仅当 $d>\bar d$ 时被告将选择和解，原告关于是否起诉的最优决策是什么？在第（2）阶段，对给定的要约 $s$，如果被告推断拒绝后原告将向法庭起诉的概率为 $p$，被告的类型为 $d$ 时，其最优的和解决策是什么？如果要约 $s>2c$，开始于阶段（2）的连续博弈的精炼贝叶斯均衡是什么？如果要约 $s<2c$ 呢？如果 $c<1/3$，求出整个博弈的精炼贝叶斯均衡。如果 $1/3<c<1/2$ 呢？
+
+\sol 记被告类型为 $d\sim U[0,1]$（私人信息），原告成本为 $c<1/2$。
+
+\noindent\textbf{（1）第（3）阶段的最优起诉决策}
+
+若原告相信“被告当且仅当 $d>\bar d$ 时和解（接受要约）”，则一旦被告拒绝，原告推断 $d\le \bar d$，且在其上均匀分布，故 $E[d\mid\text{拒绝}]=\bar d/2$。原告起诉的预期收益为 $\bar d/2-c$，放弃为 $0$。因此原告的最优决策为：
+\[
+  \text{若 }\bar d\ge 2c\text{ 则起诉；若 }\bar d<2c\text{ 则放弃；}\bar d=2c\text{ 时无差异。}
+\]
+
+\noindent\textbf{（2）第（2）阶段被告给定 $s$ 与推断 $p$ 时的最优和解决策}
+
+被告类型 $d$：接受得 $-s$；拒绝且原告以概率 $p$ 起诉时得 $-pd$，以概率 $1-p$ 放弃时得 $0$，期望为 $-pd$。故被告接受当且仅当 $-s\ge -pd$，即 $d\ge s/p$。等价地，在给定起诉概率 $p$ 下，被告接受当且仅当 $d\ge s/p$。
+
+\noindent\textbf{（3）开始于阶段（2）的连续博弈的 PBE}
+
+设均衡中被告接受当且仅当 $d\ge d^*$（拒绝集为 $[0,d^*]$）。拒绝后原告推断 $d\sim U[0,d^*]$，起诉当且仅当 $d^*/2\ge c$。
+
+\begin{enumerate}[leftmargin=1.6em]
+  \item \textbf{若 $s>2c$}：必有 $d^*=s\ge 2c$，从而拒绝后原告确定起诉。被告接受当且仅当 $d\ge s$。于是该连续博弈的 PBE 为：被告接受当且仅当 $d\ge s$（拒绝当且仅当 $d<s$）；原告在遭拒绝后必定起诉。
+  \item \textbf{若 $s<2c$}：纯战略 PBE 不存在，存在如下混合 PBE：被告接受当且仅当 $d\ge 2c$（拒绝当且仅当 $d<2c$）；遭拒绝后原告以概率 $p=s/(2c)\in(0,1)$ 起诉，此时拒绝集上 $E[d]=c$，原告在起诉与放弃间无差异，混合概率 $s/(2c)$ 恰使被告在临界 $d=2c$ 处无差异。
+\end{enumerate}
+
+\noindent\textbf{（4）整个博弈的 PBE（$c<1/3$ 与 $1/3<c<1/2$）}
+
+原告在第（1）阶段选择 $s$ 以最大化期望收益（被告类型均匀分布）。
+
+\begin{enumerate}[leftmargin=1.6em]
+  \item \textbf{若 $s\ge 2c$（分支 A）}：被告接受概率 $1-s$，拒绝概率 $s$；拒绝后原告必起诉，得 $E[d\mid\text{拒绝}]-c=s/2-c$。原告期望收益
+  \[
+    EU_A(s)=(1-s)s+s\Bigl(\frac{s}{2}-c\Bigr)=s\Bigl(1-\frac{s}{2}-c\Bigr).
+  \]\indent
+  一阶条件 $1-s-c=0\Rightarrow s=1-c$；二阶条件为负。该内部解要求 $s\ge 2c$，即 $1-c\ge 2c\iff c\le 1/3$。
+  \item \textbf{若 $s<2c$（分支 B）}：均衡中被告接受当且仅当 $d\ge 2c$，接受概率 $1-2c$，拒绝概率 $2c$；拒绝后原告期望收益恰为 $0$（因 $E[d\mid\text{拒绝}]=c$，起诉净收益 $0$）。原告期望收益
+  \[
+    EU_B(s)=(1-2c)\,s.
+  \]\indent
+  在 $s<2c$ 上关于 $s$ 单调递增，最大化取 $s\to 2c$。
+\end{enumerate}
+
+因此：
+\[
+  \boxed{\;
+  \begin{cases}
+  c<1/3:&\text{原告出价 }s^*=1-c;\ \text{被告接受当且仅当 }d\ge 1-c;\ \text{拒绝则原告必起诉。}\\[2pt]
+  1/3<c<1/2:&\text{原告出价 }s^*=2c;\ \text{被告接受当且仅当 }d\ge 2c;\ \text{拒绝则原告必起诉。}
+  \end{cases}
+  \;}
+\]\indent
+（在临界 $c=1/3$ 时两式重合，均为 $s^*=2/3$。）
+
+% =============================================================================
+\exer{4.15}
+考虑一个立法过程，其中可行的政策从 $p=0$ 到 $p=1$ 之间连续波动。国会理想中的政策为 $c$，但政策现状为 $s$，这里 $0<c<s<1$。总统认为的理想政策为 $t$，服从 $[0,1]$ 区间上的均匀分布，但属总统本人的私人信息。时间顺序非常简单：国会提议一个政策 $p$，总统可以选择签署还是否决。如果 $p$ 被签署通过，则国会的收益为 $-(c-p)^2$，总统的收益为 $-(t-p)^2$；如果 $p$ 遭否决，则收益分别为 $-(c-s)^2$ 和 $-(t-s)^2$。什么是精炼贝叶斯均衡？证明在均衡中 $c<p<s$。
+
+现在，假设在国会提出政策议案之前，总统可以发表一篇演说（即可发送一个空谈信号）。考虑一个两阶段精炼贝叶斯均衡，其中国会据总统发送哪一种信号，而选择议案 $p_L$ 或 $p_H$。证明在这样的均衡中不可能有 $c<p_L<p_H<s$。并解释为什么由此可以推出均衡中，国会的议案不可能有三个或更多？推导在 $c=p_L<p_H<s$ 条件下的两段均衡的详细结果：哪种类型选择哪种信号，且 $p_H$ 的值是什么？
+
+\sol \textbf{（a）无空谈时的 PBE}
+
+国会提案 $p$，总统（已知 $t$）签署当且仅当
+\[
+  -(t-p)^2\ge -(t-s)^2\iff (t-p)^2\le (t-s)^2\iff t\le \frac{s+p}{2}.
+\]\indent
+（因为 $p<s$，化简可得 $2t(s-p)\le (s-p)(s+p)\Rightarrow 2t\le s+p$。）故总统签署当且仅当 $t\le (s+p)/2$，否决否则。
+
+国会事先不知道 $t$ 但知道其为 $U[0,1]$，故提案 $p$ 下总统签署概率为 $\alpha(p)=(s+p)/2$（假设其不超过 $1$）。国会的期望收益
+\[
+  EU(p)=\frac{s+p}{2}\bigl[-(c-p)^2\bigr]+\Bigl(1-\frac{s+p}{2}\Bigr)\bigl[-(c-s)^2\bigr].
+\]\indent
+对 $p$ 求一阶条件（令 $x=c-p$）可得
+\[
+  3x^2-2(s+c)x-(c-s)^2=0,
+\]\indent
+其使 $p\in(c,s)$ 的根给出
+\[
+  p^*=\frac{2c-s+2\sqrt{s^2-sc+c^2}}{3}\in(c,s).
+\]\indent
+（验证：$p^*>c$ 且 $p^*<s$ 在 $0<c<s<1$ 时成立。）二阶条件为负。因此在均衡中 $c<p^*<s$，且总统签署当且仅当 $t\le (s+p^*)/2$。
+
+\noindent\textbf{（b）引入空谈后的两段均衡}
+
+总统（发送者）类型 $t\sim U[0,1]$，国会在观测到信号后选择议案 $p_L$ 或 $p_H$（两方案）。总统从议案 $p$ 得到的“继续博弈价值”为：若其签署阈值被满足（即 $t\le(s+p)/2$）则得 $-(t-p)^2$，否则被否决得 $-(t-s)^2$。该价值关于 $t$ 在 $t=p$ 附近单峰，故总统对议案的偏好是其理想点 $t$ 的单调（单交叉）函数。
+
+\begin{enumerate}[leftmargin=1.6em, label=\arabic*.]
+  \item \textbf{不可能有 $c<p_L<p_H<s$。} 国会目标是最小化 $-(c-p)^2$，即希望议案尽量靠近 $c$。在任一信息对应的议案 $p$ 上，国会总可以把较低的议案向下推到 $c$（其自身最优点），而不会破坏类型对两议案的分离激励（临界类型只随之移动）。因此任何两段均衡中较低的议案必为 $c$，即 $c=p_L<p_H<s$；绝不可能两议案都严格落在 $(c,s)$ 内。
+  \item \textbf{议案不超过两个。} 由于总统偏好关于 $t$ 单峰、单交叉，以及国会的收益仅取决于议案与 $c$ 的距离，引入更多议案并不能改进国会期望收益——最优机制只需把类型空间在最优点 $c$ 附近作至多一次划分，故均衡议案至多两个（$c$ 与一个较高议案）。
+  \item \textbf{$c=p_L<p_H<s$ 时的两段均衡。} 低类型（$t\le t^*$）发出使国会提 $p_L=c$ 的信号；高类型（$t>t^*$）发出使国会提 $p_H$ 的信号。临界类型 $t^*$ 在两种议案下无差异。由于两议案均会被签署（对 $p_L=c$ 有 $(s+c)/2>c$；对 $p_H$ 亦取使 $(s+p_H)/2\ge t^*$），总统在 $p_L=c$ 与 $p_H$ 下的收益分别为 $-(t^*-c)^2$ 与 $-(t^*-p_H)^2$，无差异给出
+  \[
+    t^*=\frac{c+p_H}{2}.
+  \]\indent
+  国会选择 $p_H$（在 $p_L=c$ 固定下）最大化期望收益
+  \[
+    EU=t^*\bigl[-(c-c)^2\bigr]+(1-t^*)\bigl[-(c-p_H)^2\bigr]
+        =-(1-t^*)(c-p_H)^2,
+  \]\indent
+  其关于 $p_H$ 的一阶条件（结合 $t^*=(c+p_H)/2$）给出
+  \[
+    p_H^*=\frac{2c+s}{3},
+  \]\indent
+    代回临界类型公式，得到
+    \[
+      t^*=\frac{c+p_H^*}{2}=\frac{2c+s}{6}.
+    \]
+    \indent 由于 $0<c<s<1$，有 $c<p_H^*<s$ 且 $t^*\in(0,1)$。因此低类型 $t\le (2c+s)/6$ 对应议案 $c$，高类型对应议案 $(2c+s)/3$。
+\end{enumerate}
+
+% =============================================================================
+\exer{4.16}
+考虑习题 4.3(a) 和 (b) 描述的混同均衡。对每一个均衡：检验支持该均衡的推断是否满足信号要求 5；检验支持均衡的推断是否满足信号要求 6（直观标准）。
+
+\sol 回顾两题的混同精炼贝叶斯均衡及其所依赖的离路径推断：
+
+\noindent\textbf{（A）习题 4.3(a) 的混同均衡 $\{(R,R),(u,d),\,q=0.5,\,p>1/3\}$}
+
+离路径信号为 $L$（两类型均未发送），支撑该均衡要求接收者在 $L$ 信息集上的后验 $p>1/3$（即认为来自 $t_1$ 的概率大于 $1/3$），从而接收者选 $u$ 使 $t_2$ 不偏离。
+
+\begin{enumerate}[leftmargin=1.6em]
+  \item \textbf{信号要求 5}：信号 $L$ 是否为某类型的“劣信号”？将各类型在 $L$、$R$ 下的收益区间并列比较：
+    \[
+      \begin{array}{c|cc}
+        & L & R\\ \hline
+        t_1 & [1,2] & [0,3]\\
+        t_2 & [0,3] & [1,2]
+      \end{array}
+    \]
+    \indent 两行中，$L$ 的最低收益都不高于 $R$ 的最高收益，因此没有任何类型的 $L$ 是劣信号。信号要求 5 的条件不适用（不约束），该均衡的支撑推断\textbf{满足}信号要求 5。
+  \item \textbf{信号要求 6（直观标准）}：均衡收益为
+    \[
+      U^*(t_1)=3,\qquad U^*(t_2)=2.
+    \]
+    \indent 类型 $t_1$ 偏离到 $L$ 的最高收益为 $\max\{1,2\}=2<3$，故 $L$ 是 $t_1$ 的均衡劣信号。直观标准要求在离路径的 $L$ 信息集上令 $\mu(t_1|L)=0$，即 $p=0$。但原均衡要求 $p>1/3>0$，二者矛盾。若强制 $p=0$，接收者将在 $L$ 后选 $d$，因为
+    \[
+      E(d)=1>E(u)=0.
+    \]
+    \indent 此时 $t_2$ 偏离到 $L$ 可得 $3>2$。因此该均衡的支撑推断\textbf{不满足}信号要求 6（被直观标准剔除）。
+\end{enumerate}
+
+\noindent\textbf{（B）习题 4.3(b) 的混同均衡 $\{(L,L,L),(u,u),\,p_i=1/3,\,q_1+q_2>1/2\}$}
+
+离路径信号为 $R$，支撑该均衡要求接收者在 $R$ 信息集上的推断满足 $q_1+q_2>1/2$（即认为非 $t_3$ 的概率大于 $1/2$），从而接收者选 $u$ 使 $t_3$ 不偏离。
+
+\begin{enumerate}[leftmargin=1.6em]
+  \item \textbf{信号要求 5}：信号 $R$ 是否为某类型的劣信号？比较两种信号的收益区间：
+    \[
+      \begin{array}{c|cc}
+        & L & R\\ \hline
+        t_1 & [1,2] & [0,0]\\
+        t_2 & [0,3] & [0,1]\\
+        t_3 & [0,1] & [0,2]
+      \end{array}
+    \]
+    \indent 由此可知，$R$ 是 $t_1$ 的劣信号。信号要求 5 要求对离路径信号 $R$ 令 $\mu(t_1|R)=0$（即 $q_1=0$）。将原支撑推断调整为 $q_1=0$、$q_2>1/2$（例如 $q_2=1,q_3=0$），接收者仍选 $u$，且 $t_2,t_3$ 均不偏离。因此该均衡\textbf{可以}在 $q_1=0$ 下被支撑，即\textbf{满足}信号要求 5。
+  \item \textbf{信号要求 6（直观标准）}：均衡收益和偏离收益比较为
+    \[
+      \begin{array}{c|cc}
+        & U^*(t_i) & \max U(t_i,R)\\ \hline
+        t_1 & 1 & 0\\
+        t_2 & 2 & 1\\
+        t_3 & 1 & 2
+      \end{array}
+    \]
+    \indent 因此 $R$ 是 $t_1,t_2$ 的均衡劣信号，对 $t_3$ 则不是。直观标准要求在离路径的 $R$ 信息集上令 $\mu(t_1|R)=\mu(t_2|R)=0$，即 $q_1=q_2=0$，从而只剩 $t_3$（$q_3=1$）。此时接收者在 $R$ 后选择 $d$，因为
+    \[
+      E(u)=0<E(d)=1.
+    \]
+    \indent 而 $t_3$ 偏离到 $R$ 可得 $2>1$，均衡崩溃。故原均衡的支撑推断\textbf{不满足}信号要求 6（被直观标准剔除）。
+\end{enumerate}
+
+\noindent 综上，4.3(a) 与 4.3(b) 的混同均衡均通过信号要求 5（或在可调整推断的意义下不与之冲突），但都\textbf{不满足}信号要求 6（直观标准），因而被直观标准所剔除。

@@ -1,0 +1,760 @@
+\chapter{非完全信息静态博弈}\label{chap:03}
+
+% -----------------------------------------------------------------------------
+\exer{3.1}
+什么是静态贝叶斯博弈？什么是静态贝叶斯博弈的一个（纯）战略？什么是它的（纯战略）贝叶斯纳什均衡？
+
+\sol
+
+\textbf{（1）静态贝叶斯博弈}。
+
+一个静态贝叶斯博弈可由以下要素刻画：
+\begin{enumerate}[nosep]
+\item 参与者集合 $N=\{1,2,\dots,n\}$；
+\item 每个参与者 $i$ 的行动空间 $A_i$；
+\item 每个参与者 $i$ 的类型空间 $T_i$，类型 $t_i\in T_i$ 是 $i$ 的私人信息；
+\item 共同先验分布 $p(t_1,\dots,t_n)$，所有参与者知道 $p$；
+\item 收益函数 $u_i(a_1,\dots,a_n;t_1,\dots,t_n)$，依赖于行动组合与类型组合。
+\end{enumerate}
+博弈的时序为：自然首先按 $p$ 抽取类型向量 $(t_1,\dots,t_n)$并告知各参与者自己的类型；然后所有参与者同时选择行动。由于参与者不知道他人的类型，但知道先验 $p$，他在决策时会根据 $p$ 形成对他人行动的期望。
+
+\textbf{（2）纯战略}。
+
+在静态贝叶斯博弈中，参与者 $i$ 的一个纯战略是一个映射
+\[
+	s_i:T_i\to A_i,
+\]\indent
+即对每个可能的类型 $t_i\in T_i$，战略 $s_i$ 指定一个行动 $s_i(t_i)\in A_i$。注意：这里的战略是类型依存的，因为参与者只能根据自己的类型（而不能直接根据他人的类型）来行动。
+
+\textbf{（3）纯战略贝叶斯纳什均衡}。
+
+一个纯战略组合 $s^*=(s_1^*,\dots,s_n^*)$ 是一个（纯战略）贝叶斯纳什均衡，当且仅当对每一个参与者 $i$、每一个类型 $t_i\in T_i$，以及每一个可行行动 $a_i\in A_i$，都有
+\[
+	\mathbb{E}_{t_{-i}\mid t_i}\Bigl[u_i\bigl(s_i^*(t_i),s_{-i}^*(t_{-i});t_i,t_{-i}\bigr)\Bigr]
+	\ge
+	\mathbb{E}_{t_{-i}\mid t_i}\Bigl[u_i\bigl(a_i,s_{-i}^*(t_{-i});t_i,t_{-i}\bigr)\Bigr].
+\]\indent
+其中期望是关于 $i$ 对他人类型 $t_{-i}$ 的信念（由先验 $p$ 经贝叶斯更新得到）取的。换句话说，给定他人的类型依存战略，每个参与者在知道自己的类型后选择的行动必须使自己的条件期望收益最大化。
+
+
+% -----------------------------------------------------------------------------
+\exer{3.2}
+考虑下面的古诺双头垄断模型。市场的反需求函数为 $p(Q)=a-Q$，其中 $Q=q_1+q_2$ 为市场总产量。两个企业的总成本都为 $c_i(q_i)=cq_i$，但需求却不确定：分别以 $\theta$ 的概率为高（$a=a_H$），以 $1-\theta$ 的概率为低（$a=a_L$）。还有，信息也是非对称的：企业~1 知道需求是高还是低，但企业~2 不知道。所有这些都是共同知识。两企业同时进行产量决策。请确定这两个企业的战略空间？假定 $a_H$、$a_L$、$\theta$ 和 $c$ 的取值范围使得所有均衡产出都是正数，此博弈的贝叶斯纳什均衡是什么？
+
+\sol
+
+\textbf{行动空间与类型空间。}
+\begin{enumerate}[nosep]
+\item 企业~1 的行动空间：$A_1=[0,\infty)$（选择产量 $q_1$）。
+\item 企业~2 的行动空间：$A_2=[0,\infty)$（选择产量 $q_2$）。
+\item 企业~1 的类型空间：$T_1=\{H,L\}$，其中 $H$ 表示高需求 $a=a_H$，$L$ 表示低需求 $a=a_L$。企业~1 知道自己的类型。
+\item 企业~2 的类型空间：$T_2=\{0\}$（单点，即企业~2 没有私人信息）。
+\item 共同先验：$P(a=a_H)=\theta$，$P(a=a_L)=1-\theta$。
+\end{enumerate}
+
+\textbf{战略空间。}
+
+企业~1 的战略是类型依存的产量函数：
+\[
+	s_1:\{H,L\}\to[0,\infty),\qquad s_1(H)=q_1^H,\quad s_1(L)=q_1^L.
+\]\indent
+企业~2 只选择一个产量 $q_2$（战略退化为一个数）。
+
+\textbf{收益函数。}
+
+若企业~1 为高需求类型，其利润为
+\[
+	\pi_1^H=\bigl(a_H-q_1^H-q_2-c\bigr)q_1^H.
+\]\indent
+若企业~1 为低需求类型，其利润为
+\[
+	\pi_1^L=\bigl(a_L-q_1^L-q_2-c\bigr)q_1^L.
+\]\indent
+企业~2 不知道企业~1 的类型，其期望利润为
+\[
+	\pi_2=\theta\bigl(a_H-q_1^H-q_2-c\bigr)q_2+(1-\theta)\bigl(a_L-q_1^L-q_2-c\bigr)q_2.
+\]
+
+\textbf{最优化。}
+
+对企业~1 的两类分别求一阶条件：
+\[
+	\frac{\partial\pi_1^H}{\partial q_1^H}=a_H-q_2-c-2q_1^H=0
+	\quad\Longrightarrow\quad
+	q_1^H=\frac{a_H-q_2-c}{2}.
+\]\indent
+\[
+	\frac{\partial\pi_1^L}{\partial q_1^L}=a_L-q_2-c-2q_1^L=0
+	\quad\Longrightarrow\quad
+	q_1^L=\frac{a_L-q_2-c}{2}.
+\]\indent
+对企业~2 求一阶条件：
+\[
+	\frac{\partial\pi_2}{\partial q_2}
+	=\theta(a_H-q_1^H-q_2-c)+(1-\theta)(a_L-q_1^L-q_2-c)-q_2-q_2=0,
+\]\indent
+即
+\[
+	2q_2=\theta(a_H-q_1^H)+(1-\theta)(a_L-q_1^L)-c,
+\]\indent
+从而
+\[
+	q_2=\frac{\theta(a_H-q_1^H)+(1-\theta)(a_L-q_1^L)-c}{2}.
+\]
+
+\textbf{联立求解。}
+
+把 $q_1^H$、$q_1^L$ 代入 $q_2$ 的表达式。先算
+\[
+	a_H-q_1^H=a_H-\frac{a_H-q_2-c}{2}=\frac{a_H+q_2+c}{2},
+\]\indent
+\[
+	a_L-q_1^L=a_L-\frac{a_L-q_2-c}{2}=\frac{a_L+q_2+c}{2}.
+\]\indent
+于是
+\[
+\begin{aligned}
+	q_2
+	&=\frac{1}{2}\Bigl[\theta\cdot\frac{a_H+q_2+c}{2}
+	+(1-\theta)\cdot\frac{a_L+q_2+c}{2}-c\Bigr]\\[4pt]
+	&=\frac{1}{2}\Bigl[\frac{\theta a_H+(1-\theta)a_L+q_2+c}{2}-c\Bigr]\\[4pt]
+	&=\frac{\theta a_H+(1-\theta)a_L+q_2-c}{4}.
+\end{aligned}
+\]\indent
+整理得
+\[
+	4q_2=\theta a_H+(1-\theta)a_L+q_2-c,
+\]\indent
+\[
+	q_2^*=\frac{\theta a_H+(1-\theta)a_L-c}{3}.
+\]\indent
+代回 $q_1^H$、$q_1^L$：
+\[
+\begin{aligned}
+	q_1^{H*}
+	&=\frac{a_H-c}{2}-\frac{q_2^*}{2}\\[4pt]
+	&=\frac{a_H-c}{2}-\frac{\theta a_H+(1-\theta)a_L-c}{6}\\[4pt]
+	&=\frac{3(a_H-c)-[\theta a_H+(1-\theta)a_L-c]}{6}\\[4pt]
+	&=\frac{(3-\theta)a_H-(1-\theta)a_L-2c}{6}.
+\end{aligned}
+\]\indent
+以及
+\[
+\begin{aligned}
+	q_1^{L*}
+	&=\frac{a_L-c}{2}-\frac{q_2^*}{2}\\[4pt]
+	&=\frac{(2+\theta)a_L-\theta a_H-2c}{6}.
+\end{aligned}
+\]
+
+\textbf{贝叶斯纳什均衡。}
+
+\[
+  \boxed{
+    \begin{gathered}
+      q_1^{H*}=\frac{(3-\theta)a_H-(1-\theta)a_L-2c}{6},\\[3pt]
+      q_1^{L*}=\frac{(2+\theta)a_L-\theta a_H-2c}{6},\\[3pt]
+      q_2^*=\frac{\theta a_H+(1-\theta)a_L-c}{3}.
+    \end{gathered}
+  }
+\]\indent
+在题设参数范围保证各产量为正时，这就是唯一的贝叶斯纳什均衡。
+
+
+% -----------------------------------------------------------------------------
+\exer{3.3}
+考虑下面的贝兰特德双头垄断模型在非对称信息下的情况，两企业的产品存在差异。对企业 $i$ 的需求为 $q_i(p_i,p_j)=a-p_i-b_i\cdot p_j$，两企业的成本都为 $0$。企业 $i$ 的需求对企业 $j$ 价格的敏感程度有可能较高，也可能较低，也就是说，$b_i$ 可能等于 $b_H$，也可能等于 $b_L$，这里 $b_H>b_L>0$。对每一个企业，$b_i=b_H$ 的概率为 $\theta$，$b_i=b_L$ 的概率为 $1-\theta$，并与 $b_j$ 的值无关。每一企业知道自己的 $b_i$，但不知道对方的，所有这些都是共同知识。此博弈中的行动空间、类型空间、推断以及效用函数各是什么？双方的战略空间各是什么？此博弈对称的纯战略贝叶斯纳什均衡应满足哪些条件？求出这样的均衡解。
+
+\sol
+
+\textbf{行动空间。}
+
+每个企业选择自己的价格 $p_i$，行动空间为 $A_i=[0,\infty)$，$i=1,2$。
+
+\textbf{类型空间。}
+
+每个企业 $i$ 的类型 $t_i=b_i\in T_i=\{b_H,b_L\}$。类型是私人信息。共同先验为
+\[
+	P(b_i=b_H)=\theta,\qquad P(b_i=b_L)=1-\theta,
+\]\indent
+且两企业的类型相互独立，故联合分布为
+\[
+	P(b_i,b_j)=P(b_i)P(b_j).
+\]
+
+\textbf{信念（推断）。}
+
+由于类型独立，企业 $i$ 在知道自身类型 $b_i$ 后，对企业 $j$ 类型的信念与先验相同：
+\[
+	P(b_j=b_H\mid b_i)=\theta,\qquad P(b_j=b_L\mid b_i)=1-\theta.
+\]
+
+\textbf{效用（利润）函数。}
+
+企业 $i$ 的利润为
+\[
+	\pi_i(p_i,p_j;b_i,b_j)=p_i\cdot q_i(p_i,p_j)=p_i\bigl(a-p_i-b_i p_j\bigr).
+\]
+
+\textbf{战略空间。}
+
+一个对称的纯战略由两个价格组成：高类型企业定价 $p_H$，低类型企业定价 $p_L$。即
+\[
+	s_i(b_H)=p_H,\qquad s_i(b_L)=p_L,\qquad i=1,2.
+\]
+
+\textbf{期望利润与均衡条件。}
+
+设企业 $j$ 采用对称战略 $(p_H,p_L)$。令
+\[
+	\bar p=\theta p_H+(1-\theta)p_L
+\]\indent
+表示企业 $i$ 对企业 $j$ 价格的期望。对企业 $i$ 给定类型 $b_i$ 时，其期望利润为
+\[
+	\mathbb{E}\pi_i(p_i\mid b_i)
+	=p_i\bigl(a-p_i-b_i\bar p\bigr).
+\]\indent
+该函数对 $p_i$ 是凹的，一阶条件给出最优反应：
+\[
+	\frac{\partial}{\partial p_i}\mathbb{E}\pi_i(p_i\mid b_i)=a-2p_i-b_i\bar p=0
+	\quad\Longrightarrow\quad
+	p_i^*(b_i)=\frac{a-b_i\bar p}{2}.
+\]\indent
+因此，对称纯战略贝叶斯纳什均衡 $(p_H,p_L)$ 必须满足
+\[
+	p_H=\frac{a-b_H\bar p}{2},\qquad p_L=\frac{a-b_L\bar p}{2}.
+\]
+
+\textbf{求解均衡价格。}
+
+把 $p_H,p_L$ 代入 $\bar p$ 的定义：
+\[
+\begin{aligned}
+	\bar p
+	&=\theta\cdot\frac{a-b_H\bar p}{2}+(1-\theta)\cdot\frac{a-b_L\bar p}{2}\\[4pt]
+	&=\frac{a}{2}-\frac{\theta b_H+(1-\theta)b_L}{2}\bar p.
+\end{aligned}
+\]\indent
+整理得
+\[
+	\bar p\left(1+\frac{\theta b_H+(1-\theta)b_L}{2}\right)=\frac{a}{2},
+\]\indent
+即
+\[
+	\bar p=\frac{a}{2+\theta b_H+(1-\theta)b_L}.
+\]\indent
+代回得到
+\[
+	\boxed{
+	p_H=\frac{a}{2}\left(1-\frac{b_H}{2+\theta b_H+(1-\theta)b_L}\right),
+	\qquad
+	p_L=\frac{a}{2}\left(1-\frac{b_L}{2+\theta b_H+(1-\theta)b_L}\right)
+	}
+\]\indent
+由于 $b_H>b_L$，有 $p_H<p_L$：当产品间替代程度较高时，企业定价更低。若参数满足 $a>\max\{b_H,b_L\}\bar p$，则两价格均为正数，上述战略构成唯一的对称纯战略贝叶斯纳什均衡。
+
+
+% -----------------------------------------------------------------------------
+\exer{3.4}
+在下面的静态贝叶斯博弈中，求出所有的纯战略贝叶斯纳什均衡：
+\begin{enumerate}[nosep,label=\arabic*.]
+\item 自然决定收益情况由博弈~1 给出，还是由博弈~2 给出，选择每一博弈的概率相等；
+\item 参与者~1 了解到自然是选择了博弈~1，还是选择了博弈~2，但参与者~2 不知道；
+\item 参与者~1 选择 $T$ 或 $B$，同时参与者~2 选择 $L$ 或 $R$；
+\item 根据自然选择的博弈，两参与者得到相应的收益。
+\end{enumerate}
+
+博弈~1 与博弈~2 的收益矩阵如下：
+
+\begin{paytab}
+\begin{tabular}{c|cc}
+\multicolumn{1}{c}{博弈~1} & \multicolumn{1}{c}{$L$} & \multicolumn{1}{c}{$R$}\\
+\cline{2-3}
+\rule{0pt}{12pt}$T$ & $1,1$ & $0,0$\\
+\hline
+\rule{0pt}{12pt}$B$ & $0,0$ & $0,0$\\
+\hline
+\end{tabular}
+\qquad\qquad
+\begin{tabular}{c|cc}
+\multicolumn{1}{c}{博弈~2} & \multicolumn{1}{c}{$L$} & \multicolumn{1}{c}{$R$}\\
+\cline{2-3}
+\rule{0pt}{12pt}$T$ & $0,0$ & $0,0$\\
+\hline
+\rule{0pt}{12pt}$B$ & $0,0$ & $2,2$\\
+\hline
+\end{tabular}
+\end{paytab}
+
+\sol
+
+\textbf{类型与战略。}
+
+自然的类型（即博弈选择）为 $\tau\in\{1,2\}$，$P(\tau=1)=P(\tau=2)=\tfrac12$。参与者~1 知道 $\tau$，因此其纯战略是一个二元组
+\[
+	\sigma_1=(a_1,a_2)\in\{T,B\}\times\{T,B\},
+\]\indent
+其中 $a_1$ 为博弈~1 中的行动，$a_2$ 为博弈~2 中的行动。参与者~2 不知道 $\tau$，其战略就是 $\sigma_2\in\{L,R\}$。
+
+\textbf{参与者~2 的期望收益。}
+
+给定参与者~1 的战略 $(a_1,a_2)$，参与者~2 选择 $L$ 与 $R$ 的期望收益分别为
+\[
+	u_2(L)=\frac12\cdot u_2^1(L\mid a_1)+\frac12\cdot u_2^2(L\mid a_2),
+\]\indent
+\[
+	u_2(R)=\frac12\cdot u_2^1(R\mid a_1)+\frac12\cdot u_2^2(R\mid a_2).
+\]\indent
+具体列出：
+
+\begin{center}
+\renewcommand{\arraystretch}{1.30}
+\begin{tabular}{c|c|c}
+$(a_1,a_2)$ & $u_2(L)$ & $u_2(R)$\\
+\hline
+$(T,T)$ & $\tfrac12(1)+\tfrac12(0)=\tfrac12$ & $\tfrac12(0)+\tfrac12(0)=0$\\
+$(T,B)$ & $\tfrac12(1)+\tfrac12(0)=\tfrac12$ & $\tfrac12(0)+\tfrac12(2)=1$\\
+$(B,T)$ & $\tfrac12(0)+\tfrac12(0)=0$ & $\tfrac12(0)+\tfrac12(0)=0$\\
+$(B,B)$ & $\tfrac12(0)+\tfrac12(0)=0$ & $\tfrac12(0)+\tfrac12(2)=1$\\
+\hline
+\end{tabular}
+\end{center}
+
+\textbf{参与者~1 的最优反应。}
+
+对参与者~2 的每一个可能行动，分别看参与者~1 在已知博弈类型后的收益：
+
+\begin{enumerate}[nosep]
+\item 若 $\sigma_2=L$：在博弈~1 中 $T$ 得 $1$，$B$ 得 $0$，故选 $T$；在博弈~2 中两者都得 $0$，故任意。因此最优反应集合为 $\{(T,T),(T,B)\}$。
+\item 若 $\sigma_2=R$：在博弈~1 中两者都得 $0$，故任意；在博弈~2 中 $B$ 得 $2$，$T$ 得 $0$，故选 $B$。因此最优反应集合为 $\{(T,B),(B,B)\}$。
+\end{enumerate}
+
+\textbf{验证并列出所有纯战略 BNE。}
+
+将参与者~2 的最优反应与参与者~1 的最优反应集合交叉验证：
+
+\begin{enumerate}[label=(\roman*)]
+\item $\bigl((T,T),L\bigr)$：当 $(a_1,a_2)=(T,T)$ 时，$u_2(L)=\tfrac12>0=u_2(R)$，参与者~2 严格偏好 $L$；在 $\sigma_2=L$ 下，参与者~1 的最优反应包含 $(T,T)$。故为 BNE。
+\item $\bigl((T,B),R\bigr)$：当 $(a_1,a_2)=(T,B)$ 时，$u_2(R)=1>\tfrac12=u_2(L)$，参与者~2 严格偏好 $R$；在 $\sigma_2=R$ 下，参与者~1 的最优反应包含 $(T,B)$。故为 BNE。
+\item $\bigl((B,B),R\bigr)$：当 $(a_1,a_2)=(B,B)$ 时，$u_2(R)=1>0=u_2(L)$，参与者~2 严格偏好 $R$；在 $\sigma_2=R$ 下，参与者~1 的最优反应包含 $(B,B)$。故为 BNE。
+\end{enumerate}
+
+\textbf{结论。}
+
+\[
+	\boxed{
+	\text{所有纯战略 BNE 为}\quad
+	\bigl((T,T),L\bigr),\;
+	\bigl((T,B),R\bigr),\;
+	\bigl((B,B),R\bigr)
+	}
+\]\indent
+战略 $(B,T)$ 不能进入均衡：无论参与者~2 选 $L$ 还是 $R$，参与者~1 在至少一个博弈中都会偏离。
+
+
+% -----------------------------------------------------------------------------
+\exer{3.5}
+回顾第 1.3 节我们曾讲过的猜硬币博弈（属于完全信息静态博弈）不存在纯战略纳什均衡，但有一个混合战略纳什均衡：每个参与者都以 $1/2$ 的概率选择出正面。
+
+对与该博弈相对应的非完全信息博弈，求出一个纯战略贝叶斯纳什均衡，使得非完全信息趋于消失时，参与者在贝叶斯纳什均衡下的行为达到其在原完全信息博弈中混合战略纳什均衡下的行为。
+
+\sol
+
+完全信息猜硬币博弈的收益矩阵为
+
+\begin{paytab}
+\begin{tabular}{c|cc}
+ & \multicolumn{1}{c}{\pthead{参与人~2}} &\\
+\cline{2-3}
+ & 正面 & 背面\\
+\hline
+\rule{0pt}{12pt}正面 & $1,-1$ & $-1,1$\\
+\hline
+\rule{0pt}{12pt}背面 & $-1,1$ & $1,-1$\\
+\hline
+\end{tabular}
+\end{paytab}
+
+\textbf{非完全信息扰动。}
+
+引入私人信息扰动：参与者~1 的私人信息为 $t_c$，参与者~2 的私人信息为 $t_p$。$t_c$ 与 $t_p$ 相互独立，且都服从 $[0,x]$ 上的均匀分布。扰动后的收益矩阵如下：
+
+\begin{paytab}
+\begin{tabular}{c|cc}
+ & 正面 & 背面\\
+\hline
+\rule{0pt}{12pt}正面 & $1+t_c,\,-1$ & $-1,\,1$\\
+\hline
+\rule{0pt}{12pt}背面 & $-1,\,1$ & $1,\,-1+t_p$\\
+\hline
+\end{tabular}
+\end{paytab}
+
+当 $x\to0$ 时，额外收益 $t_c,t_p$ 趋于消失，博弈收敛到原完全信息猜硬币博弈。
+
+\textbf{临界战略。}
+
+设参与者~1 的临界值为 $c\in[0,x]$：当且仅当 $t_c\ge c$ 时选择正面；否则选择背面。于是
+\[
+	P(\text{1 选正面})=\frac{x-c}{x}.
+\]\indent
+设参与者~2 的临界值为 $p\in[0,x]$：当且仅当 $t_p\ge p$ 时选择背面；否则选择正面。于是
+\[
+	P(\text{2 选背面})=\frac{x-p}{x}.
+\]
+
+\textbf{临界值条件。}
+
+对参与者~1，选择正面的期望收益为
+\[
+	(1+t_c)\cdot\frac{p}{x}+(-1)\cdot\frac{x-p}{x},
+\]\indent
+选择背面的期望收益为
+\[
+	(-1)\cdot\frac{p}{x}+1\cdot\frac{x-p}{x}.
+\]\indent
+在临界值 $c$ 处无差异，对 $t_c=c$ 有
+\[
+	(1+c)\frac{p}{x}-\frac{x-p}{x}=-\frac{p}{x}+\frac{x-p}{x}.
+\]\indent
+化简得
+\[
+	(4+c)p=2x\quad\Longrightarrow\quad c=\frac{2x}{p}-4.\tag{1}
+\]
+
+对参与者~2，选择背面的期望收益为
+\[
+	1\cdot\frac{x-c}{x}+(-1+p)\cdot\frac{c}{x},
+\]\indent
+选择正面的期望收益为
+\[
+	(-1)\cdot\frac{x-c}{x}+1\cdot\frac{c}{x}.
+\]\indent
+在临界值 $p$ 处无差异，对 $t_p=p$ 有
+\[
+	\frac{x-c}{x}+\frac{(p-1)c}{x}=-\frac{x-c}{x}+\frac{c}{x}.
+\]\indent
+化简得
+\[
+	cp=4c-2x\quad\Longrightarrow\quad p=4-\frac{2x}{c}.\tag{2}
+\]
+
+\textbf{求解临界值。}
+
+联立 (1)、(2)，由 $p=4-2x/c$ 代入 $c=2x/p-4$ 可得
+\[
+	c=\frac{x-4+\sqrt{16+x^{2}}}{2},\qquad
+	p=\frac{x+4-\sqrt{16+x^{2}}}{2}.
+\]\indent
+（取使 $c,p\in[0,x]$ 的根。）
+
+\textbf{均衡概率与极限。}
+
+参与者~1 选正面的概率为
+\[
+	\frac{x-c}{x}
+	=1-\frac{x-4+\sqrt{16+x^{2}}}{2x}
+	=\frac{x+4-\sqrt{16+x^{2}}}{2x}.
+\]\indent
+参与者~2 选背面的概率为
+\[
+	\frac{x-p}{x}
+	=1-\frac{x+4-\sqrt{16+x^{2}}}{2x}
+	=\frac{x-4+\sqrt{16+x^{2}}}{2x}.
+\]\indent
+当 $x\to0$ 时，利用 $\sqrt{16+x^{2}}=4+\tfrac{x^{2}}{8}+o(x^{2})$，或直接洛必达，可得
+\[
+	\lim_{x\to0}\frac{x-c}{x}=\frac12,\qquad
+	\lim_{x\to0}\frac{x-p}{x}=\frac12.
+\]
+
+\textbf{结论。}
+
+上述临界战略构成一个纯战略贝叶斯纳什均衡；当非完全信息扰动消失（$x\to0$）时，两参与者分别收敛到以 $1/2$ 概率选择正面、以 $1/2$ 概率选择背面，即恢复完全信息猜硬币博弈的混合战略纳什均衡。
+
+
+% -----------------------------------------------------------------------------
+\exer{3.6}
+考虑一个价格优先密封拍卖，其中投标方的估价相互独立，并服从区间 $[0,1]$ 上的均匀分布。证明如果有 $n$ 个投标方，则以各自估价的 $(n-1)/n$ 倍作为投标价格是这一拍卖的一个对称贝叶斯纳什均衡。
+
+\sol
+
+\textbf{模型。}
+
+有 $n$ 个投标方，每个投标方 $i$ 的估价 $v_i$ 独立服从 $[0,1]$ 上的均匀分布。行动为投标价 $b_i\ge0$。最高投标价者赢得拍卖并支付其投标价（第一价格密封拍卖）。收益函数为
+\[
+	u_i(b_i,b_{-i};v_i)=
+	\begin{cases}
+	v_i-b_i, & b_i>\max_{j\ne i}b_j,\\
+	0, & b_i<\max_{j\ne i}b_j.
+\end{cases}
+\]\indent
+（对平局的处理不影响对称严格递增均衡的分析，因为连续分布下平局概率为零。）
+
+\textbf{待证均衡战略。}
+
+猜想对称线性战略
+\[
+	b_i(v_i)=\frac{n-1}{n}v_i,\qquad i=1,\dots,n.
+\]\indent
+下面验证：当其他 $n-1$ 个投标方都采用该战略时，投标方 $i$ 的最优反应也是该战略。
+
+\textbf{获胜概率。}
+
+给定 $b_i$，对其他任意投标方 $j\ne i$，有
+\[
+	b_j<b_i
+	\iff
+	\frac{n-1}{n}v_j<b_i
+	\iff
+	v_j<\frac{n}{n-1}b_i.
+\]\indent
+由于 $v_j$ 独立同分布于 $U[0,1]$，投标方 $i$ 击败所有其他 $n-1$ 个投标方的概率为
+\[
+	\Pr(\text{win})=\left(\frac{n}{n-1}b_i\right)^{\!n-1}.
+\]
+
+\textbf{期望收益最大化。}
+
+投标方 $i$ 的期望收益为
+\[
+	U_i(b_i\mid v_i)=(v_i-b_i)\left(\frac{n}{n-1}b_i\right)^{\!n-1}.
+\]\indent
+对 $b_i$ 求导：
+\[
+\begin{aligned}
+	\frac{dU_i}{db_i}
+	&=-\left(\frac{n}{n-1}b_i\right)^{\!n-1}
+	+(v_i-b_i)(n-1)\left(\frac{n}{n-1}b_i\right)^{\!n-2}\cdot\frac{n}{n-1}\\[4pt]
+	&=\left(\frac{n}{n-1}b_i\right)^{\!n-2}
+	\left[-\frac{n}{n-1}b_i+n(v_i-b_i)\right]\\[4pt]
+	&=\left(\frac{n}{n-1}b_i\right)^{\!n-2}
+	\left[nv_i-\frac{2n-1}{n-1}b_i\right].
+\end{aligned}
+\]\indent
+更简洁地，令一阶导数为零：
+\[
+	-\frac{n}{n-1}b_i+n(v_i-b_i)=0
+	\quad\Longrightarrow\quad
+	-\frac{n}{n-1}b_i+nv_i-nb_i=0.
+\]\indent
+合并含 $b_i$ 的项：
+\[
+	nb_i\left(1+\frac{1}{n-1}\right)=nv_i
+	\quad\Longrightarrow\quad
+	b_i\cdot\frac{n}{n-1}=v_i
+	\quad\Longrightarrow\quad
+	b_i=\frac{n-1}{n}v_i.
+\]
+
+\textbf{结论。}
+
+\[
+	\boxed{b_i^*(v_i)=\frac{n-1}{n}v_i\quad(i=1,\dots,n)}
+\]\indent
+是该第一价格密封拍卖的一个对称贝叶斯纳什均衡战略。
+
+
+% -----------------------------------------------------------------------------
+\exer{3.7}
+霍尔和拉齐尔（1984）把第 3.2.C 节分析的双向拍卖的买方和卖方的角色作了改动，分别代之以企业和工人，其中企业知道工人的边际产出 $m$，工人知道自己的机会成本 $v$。在这种情况下，交易意味着工人被企业所雇佣，双方交易的价格就是工人的工资 $w$。如果发生了交易，则企业的收益为 $m-w$，工人的收益为 $w$；如果不发生交易，则企业的收益为 $0$，工人的收益为 $v$。
+
+和前面相同，假定 $m$ 和 $v$ 相互独立，服从区间 $[0,1]$ 上的均匀分布。为了进行比较，计算双向拍卖中双方参与者在线性均衡下的期望收益。并改变双向拍卖的条件，考虑如下两个交易博弈：
+
+博弈 I：在双方了解到各自的私人信息之前，他们先订立一份合约，规定如果工人被企业所雇佣，则工人的工资为 $w$，但同时任何一方都可以无成本地解除雇佣关系。在双方了解到各自的私人信息之后，他们同时宣布是接受工资 $w$ 还是拒绝。如果双方都宣布接受，则交易发生；否则交易不能发生。对给定的 $[0,1]$ 之间的任意 $w$，此博弈的贝叶斯纳什均衡是什么？参照图 3.2.3 的方式，表示出交易发生的类型组合。求出使双方参与者期望收益之和最大的 $w$ 值，并求出这时的期望收益之和。
+
+博弈 II：在了解到各自的私人信息之前，双方签订一份合约，规定将运用以下的动态博弈来决定工人是否加入企业，及一旦加入时的工资水平。在双方了解到各自的私人信息之后，企业向工人开出工资水平 $w$，工人既可以接受，也可拒绝。试着用逆向归纳法分析这一博弈。对给定的 $w$ 和 $v$，工人将如何选择？如果企业预测到工人的选择，对给定的 $m$，企业又将如何决策？这时双方参与者的期望收益之和是多少？
+
+\sol
+
+\textbf{模型基础。}
+
+企业知道边际产出 $m\sim U[0,1]$，工人知道机会成本 $v\sim U[0,1]$，两者独立。交易者收益：
+\[
+\begin{array}{c|c|c}
+\text{结果} & \text{企业收益} & \text{工人收益}\\
+\hline
+\text{交易（雇佣）} & m-w & w\\
+\text{不交易} & 0 & v\\
+\hline
+\end{array}
+\]
+
+\subsection*{博弈 I：同时接受/拒绝}
+
+\textbf{给定工资 $w$ 的贝叶斯纳什均衡。}
+
+企业观察到 $m$ 后，接受 $w$ 当且仅当 $m-w\ge0$，即
+\[
+	m\ge w.
+\]\indent
+工人观察到 $v$ 后，接受 $w$ 当且仅当 $w\ge v$，即
+\[
+	v\le w.
+\]\indent
+因此，给定 $w$，唯一的纯战略 BNE 为
+\[
+	\boxed{
+	\text{企业：接受 iff }m\ge w;\qquad
+	\text{工人：接受 iff }v\le w
+	}
+\]\indent
+交易当且仅当两个条件同时成立。
+
+\textbf{交易发生的类型组合（对应图 3.2.3）。}
+
+以 $m$ 为横轴、$v$ 为纵轴，类型空间为单位正方形 $[0,1]\times[0,1]$。交易区域为
+\[
+	\mathcal{T}(w)=\{(m,v):m\ge w,\;v\le w\}=[w,1]\times[0,w],
+\]\indent
+即正方形右下角的矩形区域，见下图。
+
+\myfig{%
+\begin{tikzpicture}[scale=4.5]
+\draw[->] (-0.05,0) -- (1.15,0) node[right] {$m$};
+\draw[->] (0,-0.05) -- (0,1.15) node[above] {$v$};
+\draw (0,0) rectangle (1,1);
+\fill[maincolor!15] (0.45,0) rectangle (1,0.45);
+\draw[maincolor,thick] (0.45,0) -- (0.45,0.45) -- (1,0.45);
+\node at (0.45,-0.06) {$w$};
+\node at (-0.06,0.45) {$w$};
+\node at (1.03,1.03) {$1$};
+\node at (0.72,0.22) {\small 交易区域};
+\node at (0.22,0.72) {\small 不交易};
+\draw[dashed,gray] (0.45,-0.02) -- (0.45,0);
+\draw[dashed,gray] (-0.02,0.45) -- (0,0.45);
+\end{tikzpicture}%
+}{博弈 I 的交易类型组合区域（$w=0.45$ 示意）}
+
+\textbf{期望收益之和的最大化。}
+
+给定 $w$，企业期望收益为
+\[
+	\Pi_F(w)=\int_w^1\int_0^w (m-w)\,dv\,dm
+	=w\int_w^1(m-w)\,dm
+	=\frac{w(1-w)^2}{2}.
+\]\indent
+工人期望收益为
+\[
+	\Pi_W(w)=\int_w^1\int_0^w w\,dv\,dm
+	+\int_0^w\int_0^w v\,dv\,dm
+	+\int_0^1\int_w^1 v\,dv\,dm.
+\]\indent
+计算：
+\[
+\begin{aligned}
+	\Pi_W(w)
+	&=w\cdot(1-w)\cdot w
+	+w\cdot\frac{w^2}{2}
+	+\frac{1-w^2}{2}\\[4pt]
+	&=w^2(1-w)+\frac{w^3}{2}+\frac{1-w^2}{2}\\[4pt]
+	&=\frac{2w^2-2w^3+w^3+1-w^2}{2}\\[4pt]
+	&=\frac{1+w^2-w^3}{2}.
+\end{aligned}
+\]\indent
+总期望收益为
+\[
+	S(w)=\Pi_F(w)+\Pi_W(w)
+	=\frac{w(1-w)^2}{2}+\frac{1+w^2-w^3}{2}
+	=\frac{1+w-w^2}{2}.
+\]\indent
+对 $w\in[0,1]$ 最大化：
+\[
+	S'(w)=\frac{1-2w}{2}=0\quad\Longrightarrow\quad w^*=\frac12,
+\]\indent
+且 $S''(w)=-1<0$，确为最大值。最大总期望收益为
+\[
+	S\left(\frac12\right)=\frac{1+\tfrac12-\tfrac14}{2}=\frac58.
+\]
+
+此时
+\[
+	\Pi_F\left(\frac12\right)=\frac{1}{16},\qquad
+	\Pi_W\left(\frac12\right)=\frac{9}{16}.
+\]
+
+\textbf{博弈 I 结论。}
+
+\[
+	\boxed{w^*=\frac12,\qquad S(w^*)=\frac58,\qquad
+	\Pi_F=\frac{1}{16},\;\Pi_W=\frac{9}{16}}
+\]
+
+\subsection*{博弈 II：企业出价，工人决定}
+
+\textbf{逆向归纳。}
+
+\textit{第二步：工人的选择。}
+给定企业开出的工资 $w$ 和自己的机会成本 $v$，工人接受当且仅当
+\[
+	w\ge v.
+\]\indent
+接受概率为
+\[
+	P(\text{接受}\mid w)=P(v\le w)=w.
+\]
+
+\textit{第一步：企业的出价。}
+企业知道自己的边际产出 $m$，并预见到工人会在 $v\le w$ 时接受。企业选择 $w$ 以最大化期望收益：
+\[
+	\max_{w\in[0,1]}\; w\,(m-w).
+\]\indent
+一阶条件为
+\[
+	m-2w=0\quad\Longrightarrow\quad w^*(m)=\frac{m}{2}.
+\]\indent
+由于 $m\in[0,1]$，有 $w^*(m)\in[0,\tfrac12]\subset[0,1]$，满足约束。
+
+\textbf{均衡结果。}
+
+企业战略：$w(m)=m/2$。
+
+工人战略：接受当且仅当 $v\le m/2$。
+
+交易发生的类型组合为
+\[
+	\{(m,v):v\le m/2,\;m\in[0,1]\}.
+\]
+
+\textbf{期望收益之和。}
+
+企业期望收益：
+\[
+	\Pi_F^{II}=\mathbb{E}_m\left[\frac{m}{2}\left(m-\frac{m}{2}\right)\right]
+	=\mathbb{E}_m\left[\frac{m^2}{4}\right]
+	=\frac{1}{4}\cdot\frac{1}{3}
+	=\frac{1}{12}.
+\]\indent
+工人期望收益：
+\[
+	\Pi_W^{II}=\mathbb{E}_{m,v}\left[w(m)\mathbf{1}_{\{v\le w(m)\}}
+	+v\mathbf{1}_{\{v>w(m)\}}\right].
+\]\indent
+给定 $m$，有 $w(m)=m/2$，故
+\[
+	\mathbb{E}_v\left[w(m)\mathbf{1}_{\{v\le w(m)\}}+v\mathbf{1}_{\{v>w(m)\}}\right]
+	=\frac{m}{2}\cdot\frac{m}{2}+\int_{m/2}^{1}v\,dv
+	=\frac{m^2}{4}+\frac{1-(m/2)^2}{2}
+	=\frac{1}{2}+\frac{m^2}{8}.
+\]\indent
+因此
+\[
+	\Pi_W^{II}=\mathbb{E}_m\left[\frac12+\frac{m^2}{8}\right]
+	=\frac12+\frac{1}{8}\cdot\frac13
+	=\frac{13}{24}.
+\]\indent
+总期望收益为
+\[
+	S^{II}=\Pi_F^{II}+\Pi_W^{II}=\frac{1}{12}+\frac{13}{24}=\frac{15}{24}=\frac58.
+\]
+
+\textbf{博弈 II 结论。}
+
+\[
+	\boxed{
+	w^*(m)=\frac{m}{2},\quad
+	\text{工人接受 iff }v\le\frac{m}{2},\quad
+	S^{II}=\frac58
+	}
+\]\indent
+其中企业期望收益为 $1/12$，工人期望收益为 $13/24$。

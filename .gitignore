@@ -1,0 +1,13 @@
+.DS_Store
+PDF/
+latex/_build/
+latex/*.aux
+latex/*.log
+latex/*.out
+latex/*.toc
+latex/*.synctex.gz
+latex/chapters/*.aux
+latex/chapters/*.log
+latex/chapters/*.out
+latex/chapters/*.toc
+latex/chapters/*.synctex.gz
